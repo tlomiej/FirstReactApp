@@ -13,7 +13,7 @@ function App() {
 
 
   let state: Task = {
-    name: "test3",
+    name: "test4",
     id: 12
   } 
 
