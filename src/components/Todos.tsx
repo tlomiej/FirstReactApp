@@ -1,18 +1,27 @@
 import React, {Component} from 'react';
 
 
+type Task = {
+  name: string;
+  id: number;
+};
 
-export interface login {
-  login: string;
+interface Tasks extends Array<Task>{};
+
+
+export interface loginS {
+  login: string,
+  tasks?: Tasks
 }
-class Todos<todos> extends React.Component<login> {
+class Todos<todos> extends React.Component<loginS> {
 
-  
   render() {
     return (
-     // console.log(this.login);
-    <h1>TODOS </h1>
+        this.props.tasks?.map(el => {
+        return <h1>{el.name} - {this.props.login}</h1>
+        })
 
+    
      
     );
   }

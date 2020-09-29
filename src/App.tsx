@@ -28,15 +28,15 @@ class App extends React.Component {
     id: 17
   } ];
 
-  textParam: String = "TestParam" 
-
-
+  textParam: string = "Administrator" 
+  
+  
   render() {
     return (
       <div className="App">
       <h1>TEst</h1>
       <header className="App-header">
-        <Todos  login={"test"}/>
+        <Todos  login={this.textParam} tasks={this.state}/>
 
 
       
