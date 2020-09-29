@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Todo from './Todo'
 
 
 type Task = {
@@ -18,7 +19,7 @@ class Todos<todos> extends React.Component<loginS> {
   render() {
     return (
         this.props.tasks?.map(el => {
-        return <h1>{el.name} - {this.props.login}</h1>
+        return <Todo task={el}></Todo>
         })
 
     
