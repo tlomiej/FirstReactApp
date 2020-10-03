@@ -10,33 +10,50 @@ type Task = {
 interface Tasks extends Array<Task>{};
 
 
-class App extends React.Component {
-  state: Tasks = [{
-    name: "test4",
-    id: 12
-  },
-  {
-    name: "test5",
-    id: 15
-  },
-  {
-    name: "test6",
-    id: 16
-  },
-  {
-    name: "test7",
-    id: 17
-  } ];
+interface State {
+  tasks: Task[];
+}
+
+class App extends React.Component<{}, State>  {
+  state = {
+    newTask: {
+      id: 1,
+      name: ""
+    },
+    tasks: [{
+      name: "test4",
+      id: 12
+    },
+    {
+      name: "test5",
+      id: 15
+    },
+    {
+      name: "test6",
+      id: 16
+    },
+    {
+      name: "test7",
+      id: 17
+    } ]
+  };
+
+
 
   textParam: string = "Administrator" 
   
+  private deleteTask = (taskToDelete: Task) => {
+
+    console.log(`App.tsx -> ${taskToDelete.id}`)
+    this.setState({tasks: [...this.state.tasks.filter(todo => todo.id !== taskToDelete.id)]})
+  };
   
   render() {
     return (
       <div className="App">
       <h1>TEst</h1>
       <header className="App-header">
-        <Todos  login={this.textParam} tasks={this.state}/>
+        <Todos login={this.textParam} tasks={this.state.tasks} onDelete={this.deleteTask}/>
 
 
       
