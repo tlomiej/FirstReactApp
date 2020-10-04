@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
-import Todo from './Todo'
-
-
-type Task = {
-  name: string;
-  id: number;
-};
-
-interface Tasks extends Array<Task>{};
-
+import Todo from './Todo';
+import {Task} from './../models/Task';
 
 export interface loginS {
   login: string,
-  tasks: Tasks,
+  tasks: Task[],
   onDelete: (task: Task) => void;
 }
 class Todos<todos> extends React.Component<loginS> {

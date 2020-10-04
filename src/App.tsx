@@ -1,13 +1,7 @@
 import React, {Component} from 'react';
-import Todos from './components/Todos'
-import ReactDOM from "react-dom";
-
-type Task = {
-  name: string;
-  id: number;
-};
-
-interface Tasks extends Array<Task>{};
+import Todos from './components/Todos';
+import {Task} from './models/Task';
+import AddTodo from './components/AddTodo';
 
 
 interface State {
@@ -53,6 +47,10 @@ class App extends React.Component<{}, State>  {
       <div className="App">
       <h1>TEst</h1>
       <header className="App-header">
+
+      <AddTodo/>
+  
+
         <Todos login={this.textParam} tasks={this.state.tasks} onDelete={this.deleteTask}/>
 
 
