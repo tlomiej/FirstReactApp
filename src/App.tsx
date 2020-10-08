@@ -6,6 +6,7 @@ import AddTodo from './components/AddTodo';
 
 interface State {
   tasks: Task[];
+  newTask: Task;
 }
 
 class App extends React.Component<{}, State>  {
@@ -41,6 +42,31 @@ class App extends React.Component<{}, State>  {
     console.log(`App.tsx -> ${taskToDelete.id}`)
     this.setState({tasks: [...this.state.tasks.filter(todo => todo.id !== taskToDelete.id)]})
   };
+
+  
+  private addTask = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    console.log('Dodaj')
+    this.setState(previousState => ({
+      newTask: {
+        id: previousState.newTask.id + 1,
+        name: ""
+      },
+      tasks: [...previousState.tasks, previousState.newTask]
+    }));
+  };
+
+
+  private onChangeTask  = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value)
+    this.setState({
+      newTask: {
+        ...this.state.newTask,
+        name: event.target.value
+      }
+   });
+  };
   
   render() {
     return (
@@ -48,7 +74,7 @@ class App extends React.Component<{}, State>  {
       <h1>TEst</h1>
       <header className="App-header">
 
-      <AddTodo/>
+      <AddTodo task={this.state.newTask} onAdd={this.addTask} onChange={this.onChangeTask}/>
   
 
         <Todos login={this.textParam} tasks={this.state.tasks} onDelete={this.deleteTask}/>

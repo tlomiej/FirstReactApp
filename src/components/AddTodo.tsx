@@ -5,7 +5,7 @@ import {Task} from "./../models/Task";
 interface Props {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onAdd?: (event: React.FormEvent<HTMLFormElement>) => void;
-    task?: Task;
+    task: Task;
   }
 
 class AddTodo<AddTodo> extends React.Component<Props> {
@@ -14,11 +14,10 @@ class AddTodo<AddTodo> extends React.Component<Props> {
     return (
         <div>
             <h1>Dodaj obiekt</h1>
-            <input />
-            {/* <form onSubmit={onAdd}>
-                <input onChange={onChange} value={task.name} />
-                <button type="submit">Add a task</button>
-            </form> */}
+            { <form onSubmit={this.props.onAdd}>
+                <input onChange={this.props.onChange} value={this.props.task.name} />
+                <button type="submit">Dodaj</button>
+            </form> }
         </div>
         )
   }
