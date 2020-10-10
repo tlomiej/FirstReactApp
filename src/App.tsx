@@ -8,10 +8,13 @@ interface State {
   tasks: Task[];
   newTask: Task;
   geoNames: string
+  newSearch: string;
+  onChangeSearch?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 class App extends React.Component<{}, State>  {
   state = {
+    newSearch: '',
     geoNames: "",
     newTask: {
       id: 1,
@@ -70,8 +73,23 @@ class App extends React.Component<{}, State>  {
     });
   };
 
+  onChangeSearch= (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value)
+    this.setState({
+      newSearch: `${event.target.value}`
+    });
+  };
+
+  onKeyPressSearch= (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === 'Enter'){
+      this.getData();
+    }
+  };
+
+  
+
   getData() {
-    const url = 'http://api.geonames.org/searchJSON?q=london&maxRows=10&username=demo';
+    const url = `https://nominatim.openstreetmap.org/?addressdetails=1&q=${this.state.newSearch}&format=json&limit=1`;
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -99,6 +117,8 @@ class App extends React.Component<{}, State>  {
 
           <Todos login={this.textParam} tasks={this.state.tasks} onDelete={this.deleteTask} />
 
+
+          <input onChange={this.onChangeSearch} value={this.state.newSearch} onKeyPress={this.onKeyPressSearch}/>
           <button onClick={this.onClick}>Dane</button>
 
           <h2>Wynik</h2>
