@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Todos from './components/Todos';
 import { Task } from './models/Task';
 import AddTodo from './components/AddTodo';
+import { SearchBox } from "./components/SearchBox";
 
 
 interface State {
@@ -73,39 +74,6 @@ class App extends React.Component<{}, State>  {
     });
   };
 
-  onChangeSearch= (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
-    this.setState({
-      newSearch: `${event.target.value}`
-    });
-  };
-
-  onKeyPressSearch= (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if(event.key === 'Enter'){
-      this.getData();
-    }
-  };
-
-  
-
-  getData() {
-    const url = `https://nominatim.openstreetmap.org/?addressdetails=1&q=${this.state.newSearch}&format=json&limit=1`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-
-        this.setState({ geoNames: JSON.stringify(data) });
-
-      }
-      );
-  }
-
-  onClick = () => {
-    this.getData();
-  }
-
-
   render() {
     return (
       <div className="App">
@@ -118,11 +86,8 @@ class App extends React.Component<{}, State>  {
           <Todos login={this.textParam} tasks={this.state.tasks} onDelete={this.deleteTask} />
 
 
-          <input onChange={this.onChangeSearch} value={this.state.newSearch} onKeyPress={this.onKeyPressSearch}/>
-          <button onClick={this.onClick}>Dane</button>
 
-          <h2>Wynik</h2>
-          {this.state.geoNames}
+          <SearchBox></SearchBox>
 
 
 
