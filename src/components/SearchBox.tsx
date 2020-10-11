@@ -1,24 +1,30 @@
 import React from 'react';
 import { SearchResult } from "./SearchResult";
+import { searchModel } from "./../models/SearchModel";
+
 
 
 interface Props {
     newSearch?: string;
-    result?: string;
+    resultString?: string;
+    result: Array<searchModel>;
 }
 interface State {
     newSearch?: string;
-    result?: string;
+    resultString?: string;
+    result?: Array<searchModel>;
+
 }
 
 export class SearchBox<SearchBox> extends React.Component<State, Props> {
 
-    constructor(props:Props) {
+    constructor(props: Props) {
         super(props);
         this.state = {
-          result: 'Pusto'
+            resultString: 'Pusto',
+            result: []
         };
-      }
+    }
 
     render() {
         return (
@@ -49,14 +55,15 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
     }
 
     getData() {
-        const url = `https://nominatim.openstreetmap.org/?addressdetails=1&q=${this.state.newSearch}&format=json&limit=1`;
+        const url = `https://nominatim.openstreetmap.org/?addressdetails=1&q=${this.state.newSearch}&format=json&limit=3`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                
-                 this.setState({ result: JSON.stringify(data) });
-                 console.log(this.state.result)
+
+                this.setState({ resultString: JSON.stringify(data) });
+                this.setState({ result: data });
+                console.log(this.state.resultString)
 
             }
             );
