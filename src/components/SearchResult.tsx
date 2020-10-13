@@ -9,16 +9,6 @@ interface Props {
 export class SearchResult<SearchBox> extends React.Component<Props> {
 
     render() {
-
-
-        const itemElement = this.props.result?.map(element => {
-            console.log(element)
-            return Object.keys(element);
-
-
-        })
-
-        console.log("test", itemElement)
         return (
             <ul>
                 {this.props.result?.map((obj, index) => {

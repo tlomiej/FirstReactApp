@@ -3,6 +3,7 @@ import Todos from './components/Todos';
 import { Task } from './models/Task';
 import AddTodo from './components/AddTodo';
 import { SearchBox } from "./components/SearchBox";
+import Map from './components/Map';
 
 
 interface State {
@@ -88,6 +89,7 @@ class App extends React.Component<{}, State>  {
 
 
           <SearchBox></SearchBox>
+          <Map></Map>
 
 
 
