@@ -78,18 +78,19 @@ class App extends React.Component<{}, State>  {
   render() {
     return (
       <div className="App">
-        <h1>TEst</h1>
         <header className="App-header">
+          <Map>
+          </Map>
 
-          <AddTodo task={this.state.newTask} onAdd={this.addTask} onChange={this.onChangeTask} />
+          {/* <AddTodo task={this.state.newTask} onAdd={this.addTask} onChange={this.onChangeTask} />
 
 
           <Todos login={this.textParam} tasks={this.state.tasks} onDelete={this.deleteTask} />
+ */}
 
 
+          {/* <SearchBox></SearchBox> */}
 
-          <SearchBox></SearchBox>
-          <Map></Map>
 
 
 

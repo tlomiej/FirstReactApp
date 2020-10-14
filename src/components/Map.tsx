@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ReactMapGL, { NavigationControl } from 'react-map-gl';
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
+import { SearchBox } from "../components/SearchBox";
 
 const MAPBOX_TOKEN = MAPBOX_ACCESS_TOKEN || '';
 const initialState = {
@@ -51,6 +52,10 @@ export default class Map extends React.Component<{}, State> {
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 onViewportChange={(v: Viewport) => this.updateViewport(v)}
             >
+
+                <div style={{ position: 'absolute', left: 30, top: 30 }}>
+                    <SearchBox></SearchBox>
+                </div>
                 <div style={{ position: 'absolute', right: 30, bottom: 30 }}>
                     <NavigationControl onViewportChange={this.updateViewport} />
                 </div>
