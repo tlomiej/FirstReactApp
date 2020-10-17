@@ -4,7 +4,7 @@ import { Task } from './models/Task';
 import AddTodo from './components/AddTodo';
 import { SearchBox } from "./components/SearchBox";
 import Map from './components/Map';
-
+import MapBox from './components/MapBox';
 
 interface State {
   tasks: Task[];
@@ -79,8 +79,8 @@ class App extends React.Component<{}, State>  {
     return (
       <div className="App">
         <header className="App-header">
-          <Map>
-          </Map>
+          <MapBox longitude={17} latitude={52}>
+          </MapBox>
 
           {/* <AddTodo task={this.state.newTask} onAdd={this.addTask} onChange={this.onChangeTask} />
 

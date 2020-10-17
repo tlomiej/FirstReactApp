@@ -26,9 +26,14 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         };
     }
 
+    searchStyle =  {
+        background: 'white',
+      } as React.CSSProperties;
+    
+
     render() {
         return (
-            <div>
+            <div style={this.searchStyle}>
                 <h1>Wyszukaj</h1>
                 <input onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch} />
                 <button onClick={this.onClick}>Dane</button>
