@@ -18,6 +18,7 @@ type State = {
 class MapBox extends React.Component<Props, State> {
     private mapContainer: any;
     private map: any;
+    private marker: any;
 
     constructor(props: any) {
         super(props);
@@ -36,6 +37,47 @@ class MapBox extends React.Component<Props, State> {
             zoom: 2
         });
 
+        this.map.on('load',  () => {
+            this.map.loadImage(
+                'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',
+                 (error:any, image: any) => {
+                    if (error) throw error;
+                    this.map.addImage('cat', image);
+                    this.map.addSource('point', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                                {
+                                    'type': 'Feature',
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [0, 0]
+                                    }
+                                },
+                                {
+                                    'type': 'Feature',
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [0, 10]
+                                    }
+                                }
+                            ]
+                        }
+                    });
+                    this.map.addLayer({
+                        'id': 'points',
+                        'type': 'symbol',
+                        'source': 'point',
+                        'layout': {
+                            'icon-image': 'cat',
+                            'icon-size': 0.25
+                        }
+                    });
+                }
+            );
+        });
+
         this.map.on('move', () => {
             this.setState({
                 lng: this.map.getCenter().lng.toFixed(4),
@@ -44,13 +86,6 @@ class MapBox extends React.Component<Props, State> {
             });
         });
 
-
-        // Add navigation controls to the top right of the canvas
-        this.map.addControl(new mapboxgl.NavigationControl());
-
-        new mapboxgl.Marker()
-            .setLngLat([12.550343, 55.665957])
-            .addTo(this.map);
     }
     render(): JSX.Element {
         return (
