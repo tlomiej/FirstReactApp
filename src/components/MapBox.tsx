@@ -2,6 +2,8 @@ import React from "react";
 import mapboxgl from "mapbox-gl";
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./Map.css";
+import {pin} from "../graphics/pin"
+import {SearchBox} from "./SearchBox"
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -39,10 +41,10 @@ class MapBox extends React.Component<Props, State> {
 
         this.map.on('load',  () => {
             this.map.loadImage(
-                'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',
+                `${pin}`,
                  (error:any, image: any) => {
                     if (error) throw error;
-                    this.map.addImage('cat', image);
+                    this.map.addImage('pin', image);
                     this.map.addSource('point', {
                         'type': 'geojson',
                         'data': {
@@ -70,7 +72,7 @@ class MapBox extends React.Component<Props, State> {
                         'type': 'symbol',
                         'source': 'point',
                         'layout': {
-                            'icon-image': 'cat',
+                            'icon-image': 'pin',
                             'icon-size': 0.25
                         }
                     });
@@ -93,6 +95,10 @@ class MapBox extends React.Component<Props, State> {
                 <div className='sidebarStyle'>
                     <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
                 </div>
+                <div className='sidebarStyle'>
+                        <SearchBox></SearchBox> 
+                </div>
+
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
             </div>
         );
