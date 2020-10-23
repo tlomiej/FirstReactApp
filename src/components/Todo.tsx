@@ -33,6 +33,7 @@ class Todos<todos> extends React.Component<Props> {
 
 
   } as React.CSSProperties;
+  
   markComplet = (e?: any) =>{
     console.log("MarkComplet", e ,this.props);
   }

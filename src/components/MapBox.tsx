@@ -15,7 +15,8 @@ type Props = {
 type State = {
     lng: number;
     lat: number;
-    zoom: number
+    zoom: number,
+    data?: any
 };
 class MapBox extends React.Component<Props, State> {
     private mapContainer: any;
@@ -89,6 +90,10 @@ class MapBox extends React.Component<Props, State> {
         });
 
     }
+
+    getDataFromSearch(event: any){
+        console.log("SSSSSSSSSSSSSSSSSS1", event)
+    }
     render(): JSX.Element {
         return (
             <div>
@@ -96,7 +101,7 @@ class MapBox extends React.Component<Props, State> {
                     <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
                 </div>
                 <div className='sidebarStyle'>
-                        <SearchBox></SearchBox> 
+                        <SearchBox onGetData={this.getDataFromSearch}></SearchBox> 
                 </div>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />

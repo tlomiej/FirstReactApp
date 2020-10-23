@@ -8,11 +8,15 @@ interface Props {
 
 export class SearchResult<SearchBox> extends React.Component<Props> {
 
+
+    componentDidUpdate(){
+        //console.log("zmiana2")
+      }
+    
     render() {
         return (
             <ul>
                 {this.props.result?.map((obj, index) => {
-                    console.log(obj.display_name)
                     return <li key={index}>{obj.display_name}</li>;
                 })}
             </ul>)

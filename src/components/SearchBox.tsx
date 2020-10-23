@@ -8,11 +8,13 @@ interface Props {
     newSearch?: string;
     resultString?: string;
     result: Array<searchModel>;
+    onGetData: (res: any) => void;
 }
 interface State {
     newSearch?: string;
     resultString?: string;
     result?: Array<searchModel>;
+    onGetData: (res: any) => void;
 
 }
 
@@ -22,14 +24,24 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         super(props);
         this.state = {
             resultString: 'Pusto',
-            result: []
+            result: [],
+            onGetData: () => {}
         };
     }
 
-    searchStyle =  {
+    searchStyle = {
         background: 'white',
-      } as React.CSSProperties;
+    } as React.CSSProperties;
     
+
+    componentDidUpdate(prevProps: any, prevState: any) {
+        if (prevState.result !== this.state.result) {
+            this.props.onGetData(this.state.result);
+        }
+    }
+
+   
+
 
     render() {
         return (
@@ -71,7 +83,11 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
                 console.log(this.state.resultString)
 
             }
-            );
+            ).catch((error) => {
+                console.error('Error:', error);
+                this.setState({ resultString: JSON.stringify([]) });
+                this.setState({ result: [] });
+            });;
     }
 
 }

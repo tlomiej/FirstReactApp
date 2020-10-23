@@ -53,9 +53,9 @@ export default class Map extends React.Component<{}, State> {
                 onViewportChange={(v: Viewport) => this.updateViewport(v)}
             >
 
-                <div style={{ position: 'absolute', left: 30, top: 30 }}>
+             {/*    <div style={{ position: 'absolute', left: 30, top: 30 }}>
                     <SearchBox></SearchBox>
-                </div>
+                </div> */}
                 <div style={{ position: 'absolute', right: 30, bottom: 30 }}>
                     <NavigationControl onViewportChange={this.updateViewport} />
                 </div>
