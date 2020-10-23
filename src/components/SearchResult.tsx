@@ -13,11 +13,14 @@ export class SearchResult<SearchBox> extends React.Component<Props> {
         //console.log("zmiana2")
       }
     
+    resultStyle =  {
+        color: "black"
+      } as React.CSSProperties;
     render() {
         return (
             <ul>
                 {this.props.result?.map((obj, index) => {
-                    return <li key={index}>{obj.display_name}</li>;
+                    return <li style={this.resultStyle} key={index}>{obj.display_name}</li>;
                 })}
             </ul>)
     }

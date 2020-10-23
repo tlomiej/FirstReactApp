@@ -55,7 +55,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
     }
 
     onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value)
+        //console.log(event.target.value)
         this.setState({
             newSearch: `${event.target.value}`
         });
@@ -76,11 +76,11 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                //console.log(data)
 
                 this.setState({ resultString: JSON.stringify(data) });
                 this.setState({ result: data });
-                console.log(this.state.resultString)
+                //console.log(this.state.resultString)
 
             }
             ).catch((error) => {
