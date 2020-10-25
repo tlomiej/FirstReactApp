@@ -29,7 +29,7 @@ class MapBox extends React.Component<Props, State> {
         this.state = {
             lng: 5,
             lat: 34,
-            zoom: 2,
+            zoom: 0,
             points: []
         };
     }
@@ -43,30 +43,25 @@ class MapBox extends React.Component<Props, State> {
         });
 
         this.map.on('load', () => {
-            this.map.loadImage(
-                `${pin}`,
-                (error: any, image: any) => {
-                    if (error) throw error;
-                    this.map.addImage('pin', image);
+
                     this.map.addSource('point', {
                         'type': 'geojson',
                         'data': {
                             'type': 'FeatureCollection',
-                            'features': this.state.points
+                            'features': []
                         }
                     });
                     this.map.addLayer({
                         'id': 'points',
-                        'type': 'symbol',
                         'source': 'point',
-                        'layout': {
-                            'icon-image': 'pin',
-                            'icon-size': 0.25
+                        'type': 'circle',
+                        'paint': {
+                            'circle-radius': 10,
+                            'circle-color': '#007cbf'
                         }
                     });
                 }
             );
-        });
 
         this.map.on('move', () => {
             this.setState({
@@ -79,18 +74,35 @@ class MapBox extends React.Component<Props, State> {
     }
 
     private getDataFromSearch = (event: any) => {
-        console.log("SSSSSSSSSSSSSSSSSS1", event)
-        let objectData: any = event.map( (obj: any) => {
+        console.log("getDataFromSearch =>", event)
+        let objectData: any = event.map((obj: any) => {
             return {
                 'type': 'Feature',
                 'geometry': {
                     'type': 'Point',
-                    'coordinates': [parseFloat(obj.lat), parseFloat(obj.lon)]
+                    'coordinates': [parseFloat(obj.lon), parseFloat(obj.lat)]
                 }
             }
         })
-        console.log("GEoJson",objectData)
-        this.setState({points: objectData})
+        console.log("GEoJson", objectData)
+        this.setState({ points: objectData })
+
+        let geoJsonData = {
+            'type': 'FeatureCollection',
+            'features': []
+        }
+        geoJsonData.features = objectData;
+
+        if (!this.map.getSource('point')) {
+            this.map.addSource('point', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': []
+                }
+            });
+        }
+        this.map.getSource('point').setData(geoJsonData);
     }
 
     render(): JSX.Element {
