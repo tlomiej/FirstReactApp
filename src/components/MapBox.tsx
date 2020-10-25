@@ -2,7 +2,6 @@ import React from "react";
 import mapboxgl from "mapbox-gl";
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./Map.css";
-import { pin } from "../graphics/pin"
 import { SearchBox } from "./SearchBox"
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -39,7 +38,7 @@ class MapBox extends React.Component<Props, State> {
             container: this.mapContainer,
             center: [this.props.longitude, this.props.latitude],
             style: 'mapbox://styles/mapbox/streets-v11',
-            zoom: 2
+            zoom: 12
         });
 
         this.map.on('load', () => {
@@ -101,8 +100,25 @@ class MapBox extends React.Component<Props, State> {
                     'features': []
                 }
             });
+            this.map.addLayer({
+                'id': 'points',
+                'source': 'point',
+                'type': 'circle',
+                'paint': {
+                    'circle-radius': 10,
+                    'circle-color': '#007cbf'
+                }
+            });
         }
         this.map.getSource('point').setData(geoJsonData);
+        this.map.flyTo({
+            center: 
+                objectData[0].geometry.coordinates
+            ,
+    
+        
+            essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
     }
 
     render(): JSX.Element {
