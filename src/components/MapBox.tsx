@@ -56,7 +56,7 @@ class MapBox extends React.Component<Props, State> {
                         'type': 'circle',
                         'paint': {
                             'circle-radius': 10,
-                            'circle-color': '#007cbf'
+                            'circle-color': 'red'
                         }
                     });
                 }
@@ -106,7 +106,7 @@ class MapBox extends React.Component<Props, State> {
                 'type': 'circle',
                 'paint': {
                     'circle-radius': 10,
-                    'circle-color': '#007cbf'
+                    'circle-color': 'red'
                 }
             });
         }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SearchResult } from "./SearchResult";
 import { searchModel } from "./../models/SearchModel";
+import { MAPQUEST_ACCESS_TOKEN } from "./../models/MapquestToken";
 
 
 
@@ -9,12 +10,14 @@ interface Props {
     resultString?: string;
     result: Array<searchModel>;
     onGetData: (res: any) => void;
+    mapQuestResult: any
 }
 interface State {
     newSearch?: string;
     resultString?: string;
     result?: Array<searchModel>;
     onGetData: (res: any) => void;
+    mapQuestResult?: any;
 
 }
 
@@ -25,6 +28,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         this.state = {
             resultString: 'Pusto',
             result: [],
+            mapQuestResult: [],
             onGetData: () => {}
         };
     }
@@ -69,6 +73,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
 
     onClick = () => {
         this.getData();
+        this.getMapquestData()
     }
 
     getData() {
@@ -76,17 +81,31 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                //console.log(data)
-
                 this.setState({ resultString: JSON.stringify(data) });
                 this.setState({ result: data });
-                //console.log(this.state.resultString)
 
             }
             ).catch((error) => {
                 console.error('Error:', error);
                 this.setState({ resultString: JSON.stringify([]) });
                 this.setState({ result: [] });
+            });;
+    }
+
+    getMapquestData() {
+        const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${MAPQUEST_ACCESS_TOKEN}&location=${this.state.newSearch}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+               // this.setState({ resultString: JSON.stringify(data) });
+               // this.setState({ result: data });
+
+            }
+            ).catch((error) => {
+                console.error('Error:', error);
+                //this.setState({ resultString: JSON.stringify([]) });
+                //this.setState({ result: [] });
             });;
     }
 
