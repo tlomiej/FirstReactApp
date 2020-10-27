@@ -55,7 +55,7 @@ class MapBox extends React.Component<Props, State> {
                         'source': 'point',
                         'type': 'circle',
                         'paint': {
-                            'circle-radius': 10,
+                            'circle-radius': 20,
                             'circle-color': 'red'
                         }
                     });
@@ -69,6 +69,47 @@ class MapBox extends React.Component<Props, State> {
                 zoom: this.map.getZoom().toFixed(2)
             });
         });
+
+    }
+
+    private getDataFromMapQuest = (event: any) =>{
+        console.log("getDataFromMapQuest =>", event)
+        let objectData: any = event.results[0].locations.map((obj: any) => {
+            return {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    
+                    'coordinates': [parseFloat(obj.latLng.lng), parseFloat(obj.latLng.lat)]
+                }
+            }
+        })
+
+        let geoJsonData = {
+            'type': 'FeatureCollection',
+            'features': []
+        }
+        geoJsonData.features = objectData;
+
+        if (!this.map.getSource('mapQuestLayer')) {
+            this.map.addSource('mapQuestLayer', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': []
+                }
+            });
+            this.map.addLayer({
+                'id': 'mapQuestLayerId',
+                'source': 'mapQuestLayer',
+                'type': 'circle',
+                'paint': {
+                    'circle-radius': 10,
+                    'circle-color': 'blue'
+                }
+            });
+        }
+        this.map.getSource('mapQuestLayer').setData(geoJsonData);
 
     }
 
@@ -105,7 +146,7 @@ class MapBox extends React.Component<Props, State> {
                 'source': 'point',
                 'type': 'circle',
                 'paint': {
-                    'circle-radius': 10,
+                    'circle-radius': 20,
                     'circle-color': 'red'
                 }
             });
@@ -128,7 +169,7 @@ class MapBox extends React.Component<Props, State> {
                     <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
                 </div>
                 <div className='sidebarStyle'>
-                    <SearchBox onGetData={this.getDataFromSearch}></SearchBox>
+                    <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch}></SearchBox>
                 </div>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />

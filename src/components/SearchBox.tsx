@@ -10,6 +10,7 @@ interface Props {
     resultString?: string;
     result: Array<searchModel>;
     onGetData: (res: any) => void;
+    onGetMapQuestData: (res: any) => void;
     mapQuestResult: any
 }
 interface State {
@@ -17,6 +18,7 @@ interface State {
     resultString?: string;
     result?: Array<searchModel>;
     onGetData: (res: any) => void;
+    onGetMapQuestData: (res: any) => void;
     mapQuestResult?: any;
 
 }
@@ -29,7 +31,8 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
             resultString: 'Pusto',
             result: [],
             mapQuestResult: [],
-            onGetData: () => {}
+            onGetData: () => {},
+            onGetMapQuestData: () => {}
         };
     }
 
@@ -41,6 +44,9 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
     componentDidUpdate(prevProps: any, prevState: any) {
         if (prevState.result !== this.state.result) {
             this.props.onGetData(this.state.result);
+        }
+        if (prevState.mapQuestResult !== this.state.mapQuestResult) {
+            this.props.onGetMapQuestData(this.state.mapQuestResult);
         }
     }
 
@@ -68,12 +74,13 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
     onKeyPressSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             this.getData();
+            this.getMapQuestData()
         }
     };
 
     onClick = () => {
         this.getData();
-        this.getMapquestData()
+        this.getMapQuestData()
     }
 
     getData() {
@@ -92,20 +99,18 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
             });;
     }
 
-    getMapquestData() {
+    getMapQuestData() {
         const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${MAPQUEST_ACCESS_TOKEN}&location=${this.state.newSearch}`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-               // this.setState({ resultString: JSON.stringify(data) });
-               // this.setState({ result: data });
+               this.setState({ mapQuestResult: data });
 
             }
             ).catch((error) => {
                 console.error('Error:', error);
-                //this.setState({ resultString: JSON.stringify([]) });
-                //this.setState({ result: [] });
+                this.setState({ mapQuestResult: [] });
             });;
     }
 
