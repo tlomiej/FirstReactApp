@@ -30,7 +30,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         this.state = {
             resultString: 'Pusto',
             result: [],
-            mapQuestResult: [],
+            mapQuestResult: {results: [{locations: []}]},
             onGetData: () => {},
             onGetMapQuestData: () => {}
         };
@@ -59,7 +59,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
                 <h1>Wyszukaj</h1>
                 <input onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch} />
                 <button onClick={this.onClick}>Dane</button>
-                <SearchResult result={this.state.result}></SearchResult>
+                <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult}></SearchResult>
             </div>
         )
     }

@@ -38,29 +38,30 @@ class MapBox extends React.Component<Props, State> {
             container: this.mapContainer,
             center: [this.props.longitude, this.props.latitude],
             style: 'mapbox://styles/mapbox/streets-v11',
-            zoom: 12
+            zoom: 12,
+            pitch: 45
         });
 
         this.map.on('load', () => {
 
-                    this.map.addSource('point', {
-                        'type': 'geojson',
-                        'data': {
-                            'type': 'FeatureCollection',
-                            'features': []
-                        }
-                    });
-                    this.map.addLayer({
-                        'id': 'points',
-                        'source': 'point',
-                        'type': 'circle',
-                        'paint': {
-                            'circle-radius': 20,
-                            'circle-color': 'red'
-                        }
-                    });
+            this.map.addSource('point', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': []
                 }
-            );
+            });
+            this.map.addLayer({
+                'id': 'points',
+                'source': 'point',
+                'type': 'circle',
+                'paint': {
+                    'circle-radius': 20,
+                    'circle-color': 'red'
+                }
+            });
+        }
+        );
 
         this.map.on('move', () => {
             this.setState({
@@ -72,14 +73,14 @@ class MapBox extends React.Component<Props, State> {
 
     }
 
-    private getDataFromMapQuest = (event: any) =>{
+    private getDataFromMapQuest = (event: any) => {
         console.log("getDataFromMapQuest =>", event)
         let objectData: any = event.results[0].locations.map((obj: any) => {
             return {
                 'type': 'Feature',
                 'geometry': {
                     'type': 'Point',
-                    
+
                     'coordinates': [parseFloat(obj.latLng.lng), parseFloat(obj.latLng.lat)]
                 }
             }
@@ -113,7 +114,7 @@ class MapBox extends React.Component<Props, State> {
 
     }
 
-    private getDataFromSearch = (event: any) => {
+    private getDataFromSearch = async (event: any) => {
         console.log("getDataFromSearch =>", event)
         let objectData: any = event.map((obj: any) => {
             return {
@@ -152,14 +153,23 @@ class MapBox extends React.Component<Props, State> {
             });
         }
         this.map.getSource('point').setData(geoJsonData);
-        this.map.flyTo({
-            center: 
+        await this.map.flyTo({
+            center:
                 objectData[0].geometry.coordinates
             ,
-    
-        
-            essential: true // this animation is considered essential with respect to prefers-reduced-motion
-            });
+            essential: true
+        });
+
+       //setTimeout(() => {
+        //   this.rotateCamera(0);
+        //}, 2000);
+
+
+    }
+
+    rotateCamera = (timestamp: number) => {
+        this.map.rotateTo((timestamp / 150) % 360, { duration: 0 });
+        requestAnimationFrame(this.rotateCamera);
     }
 
     render(): JSX.Element {
