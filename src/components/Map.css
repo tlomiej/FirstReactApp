@@ -33,6 +33,12 @@
 }
 
 .searchStyleIner {
-  display: inline-block;
+  padding: '2px 4px';
+  display: 'flex';
   padding: 5px;
+  width: 400;
+}
+
+.iconButton {
+  padding: 10,
 }

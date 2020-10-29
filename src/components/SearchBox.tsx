@@ -4,8 +4,9 @@ import { SearchResult } from "./SearchResult";
 import { searchModel } from "./../models/SearchModel";
 import { MAPQUEST_ACCESS_TOKEN } from "./../models/MapquestToken";
 import InputBase from '@material-ui/core/InputBase/InputBase';
-//import InputBase from '@material-ui/core/InputBase';
-
+import { IconButton } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 
 interface Props {
@@ -14,7 +15,8 @@ interface Props {
     result: Array<searchModel>;
     onGetData: (res: any) => void;
     onGetMapQuestData: (res: any) => void;
-    mapQuestResult: any
+    mapQuestResult: any;
+    searchOnProgres?: boolean
 }
 interface State {
     newSearch?: string;
@@ -23,6 +25,7 @@ interface State {
     onGetData: (res: any) => void;
     onGetMapQuestData: (res: any) => void;
     mapQuestResult?: any;
+    searchOnProgres?: boolean;
 
 }
 
@@ -35,7 +38,8 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
             result: [],
             mapQuestResult: { results: [{ locations: [] }] },
             onGetData: () => { },
-            onGetMapQuestData: () => { }
+            onGetMapQuestData: () => { },
+            searchOnProgres: false
         };
     }
 
@@ -60,11 +64,21 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         return (
             <div style={this.searchStyle}>
                 <div className='searchStyleIner'>
+
+                    {(() => {
+                        switch (this.state.searchOnProgres) {
+                            case true: return <LinearProgress />;
+
+                        }
+                    })()}
+
                     <InputBase onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch}
                         placeholder="Wyszukaj"
                         inputProps={{ 'aria-label': 'search' }}
                     />
-                    <button onClick={this.onClick}>Dane</button>
+                    <IconButton type="submit" onClick={this.onClick} className='iconButton' aria-label="search">
+                        <SearchIcon />
+                    </IconButton>
                     <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult}></SearchResult>
                 </div>
             </div>
@@ -90,34 +104,37 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
     }
 
     getData() {
+        this.setState({searchOnProgres: true})
         const url = `https://nominatim.openstreetmap.org/?addressdetails=1&q=${this.state.newSearch}&format=json&limit=3`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 this.setState({ resultString: JSON.stringify(data) });
                 this.setState({ result: data });
+                this.setState({searchOnProgres: false})
 
             }
             ).catch((error) => {
                 console.error('Error:', error);
                 this.setState({ resultString: JSON.stringify([]) });
                 this.setState({ result: [] });
+                this.setState({searchOnProgres: false})
             });;
     }
 
     getMapQuestData() {
-       /*  const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${MAPQUEST_ACCESS_TOKEN}&location=${this.state.newSearch}`;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                this.setState({ mapQuestResult: data });
-
-            }
-            ).catch((error) => {
-                console.error('Error:', error);
-                this.setState({ mapQuestResult: [] });
-            });; */
+        /*  const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${MAPQUEST_ACCESS_TOKEN}&location=${this.state.newSearch}`;
+         fetch(url)
+             .then(response => response.json())
+             .then(data => {
+                 console.log(data)
+                 this.setState({ mapQuestResult: data });
+ 
+             }
+             ).catch((error) => {
+                 console.error('Error:', error);
+                 this.setState({ mapQuestResult: [] });
+             });; */
     }
 
 }
