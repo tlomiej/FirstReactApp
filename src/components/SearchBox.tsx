@@ -106,7 +106,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
     }
 
     getMapQuestData() {
-        const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${MAPQUEST_ACCESS_TOKEN}&location=${this.state.newSearch}`;
+       /*  const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${MAPQUEST_ACCESS_TOKEN}&location=${this.state.newSearch}`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -117,7 +117,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
             ).catch((error) => {
                 console.error('Error:', error);
                 this.setState({ mapQuestResult: [] });
-            });;
+            });; */
     }
 
 }

@@ -25,13 +25,13 @@ export class SearchResult<SearchBox> extends React.Component<Props> {
                         return <li style={this.resultStyle} key={index}>{obj.display_name}</li>;
                     })}
                 </ul>
-                MapQuest
+               {/*  MapQuest
 
                 <ul>
                     {this.props.resultMapQuest.results[0].locations?.map((obj: any, index: any) => {
                         return <li style={this.resultStyle} key={index}>{obj.adminArea5}</li>;
                     })}
-                </ul>
+                </ul> */}
             </div>)
     }
 }
