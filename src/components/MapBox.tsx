@@ -175,10 +175,10 @@ class MapBox extends React.Component<Props, State> {
     render(): JSX.Element {
         return (
             <div>
-                <div className='sidebarStyle'>
+              {/*   <div className='sidebarStyle'>
                     <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
-                </div>
-                <div className='sidebarStyle'>
+                </div> */}
+                <div className='searchStyle'>
                     <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch}></SearchBox>
                 </div>
 

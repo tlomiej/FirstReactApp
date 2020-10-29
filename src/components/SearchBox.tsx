@@ -1,7 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { SearchResult } from "./SearchResult";
 import { searchModel } from "./../models/SearchModel";
 import { MAPQUEST_ACCESS_TOKEN } from "./../models/MapquestToken";
+import InputBase from '@material-ui/core/InputBase/InputBase';
+//import InputBase from '@material-ui/core/InputBase';
 
 
 
@@ -30,16 +33,16 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         this.state = {
             resultString: 'Pusto',
             result: [],
-            mapQuestResult: {results: [{locations: []}]},
-            onGetData: () => {},
-            onGetMapQuestData: () => {}
+            mapQuestResult: { results: [{ locations: [] }] },
+            onGetData: () => { },
+            onGetMapQuestData: () => { }
         };
     }
 
     searchStyle = {
         background: 'white',
     } as React.CSSProperties;
-    
+
 
     componentDidUpdate(prevProps: any, prevState: any) {
         if (prevState.result !== this.state.result) {
@@ -50,22 +53,25 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         }
     }
 
-   
+
 
 
     render() {
         return (
             <div style={this.searchStyle}>
-                <h1>Wyszukaj</h1>
-                <input onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch} />
-                <button onClick={this.onClick}>Dane</button>
-                <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult}></SearchResult>
+                <div className='searchStyleIner'>
+                    <InputBase onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch}
+                        placeholder="Wyszukaj"
+                        inputProps={{ 'aria-label': 'search' }}
+                    />
+                    <button onClick={this.onClick}>Dane</button>
+                    <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult}></SearchResult>
+                </div>
             </div>
         )
     }
 
     onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        //console.log(event.target.value)
         this.setState({
             newSearch: `${event.target.value}`
         });
@@ -105,7 +111,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-               this.setState({ mapQuestResult: data });
+                this.setState({ mapQuestResult: data });
 
             }
             ).catch((error) => {
