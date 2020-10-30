@@ -123,18 +123,30 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
     }
 
     getMapQuestData() {
-        /*  const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${MAPQUEST_ACCESS_TOKEN}&location=${this.state.newSearch}`;
-         fetch(url)
-             .then(response => response.json())
+          const url = `https://overpass-api.de/api/interpreter`;
+         fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: 'node [amenity=drinking_water](41.88266210339971,12.486519813537598,41.89732595571203,12.497506141662598);out;'
+          })
+             .then(response => response)
              .then(data => {
-                 console.log(data)
-                 this.setState({ mapQuestResult: data });
+                 console.log("XXXXX",data)
+                 //this.setState({ mapQuestResult: data });
  
              }
              ).catch((error) => {
                  console.error('Error:', error);
-                 this.setState({ mapQuestResult: [] });
-             });; */
+                 //this.setState({ mapQuestResult: [] });
+             });
     }
 
 }
