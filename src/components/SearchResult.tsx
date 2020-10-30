@@ -15,17 +15,20 @@ export class SearchResult<SearchBox> extends React.Component<Props> {
     }
 
     resultStyle = {
-        color: "black"
+        color: "black",
+        padding: '10px'
     } as React.CSSProperties;
     render() {
         return (
             <div>
-                <ul>
-                    {this.props.result?.map((obj, index) => {
-                        return <li style={this.resultStyle} key={index}>{obj.display_name}</li>;
-                    })}
-                </ul>
-               {/*  MapQuest
+
+                {this.props.result?.map((obj, index) => {
+
+                    return <div style={this.resultStyle} key={index}>{obj.display_name}</div>;
+                })}
+
+                s
+                {/*  MapQuest
 
                 <ul>
                     {this.props.resultMapQuest.results[0].locations?.map((obj: any, index: any) => {

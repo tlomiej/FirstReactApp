@@ -71,14 +71,16 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
 
                         }
                     })()}
+                    <div className='searchBox'>
 
-                    <InputBase onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch}
-                        placeholder="Wyszukaj"
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
-                    <IconButton type="submit" onClick={this.onClick} className='iconButton' aria-label="search">
-                        <SearchIcon />
-                    </IconButton>
+                        <InputBase onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch}
+                            placeholder="Wyszukaj"
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                        <IconButton type="submit" onClick={this.onClick} className='iconButton' aria-label="search">
+                            <SearchIcon />
+                        </IconButton>
+                    </div>
                     <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult}></SearchResult>
                 </div>
             </div>
@@ -104,49 +106,49 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
     }
 
     getData() {
-        this.setState({searchOnProgres: true})
+        this.setState({ searchOnProgres: true })
         const url = `https://nominatim.openstreetmap.org/?addressdetails=1&q=${this.state.newSearch}&format=json&limit=3`;
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 this.setState({ resultString: JSON.stringify(data) });
                 this.setState({ result: data });
-                this.setState({searchOnProgres: false})
+                this.setState({ searchOnProgres: false })
 
             }
             ).catch((error) => {
                 console.error('Error:', error);
                 this.setState({ resultString: JSON.stringify([]) });
                 this.setState({ result: [] });
-                this.setState({searchOnProgres: false})
+                this.setState({ searchOnProgres: false })
             });;
     }
 
     getMapQuestData() {
-          const url = `https://overpass-api.de/api/interpreter`;
-         fetch(url, {
+       /*  const url = `https://overpass-api.de/api/interpreter`;
+        fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
-              'Content-Type': 'application/json'
-              // 'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: 'node [amenity=drinking_water](41.88266210339971,12.486519813537598,41.89732595571203,12.497506141662598);out;'
-          })
-             .then(response => response)
-             .then(data => {
-                 console.log("XXXXX",data)
-                 //this.setState({ mapQuestResult: data });
- 
-             }
-             ).catch((error) => {
-                 console.error('Error:', error);
-                 //this.setState({ mapQuestResult: [] });
-             });
+        })
+            .then(response => response)
+            .then(data => {
+                console.log("XXXXX", data)
+                //this.setState({ mapQuestResult: data });
+
+            }
+            ).catch((error) => {
+                console.error('Error:', error);
+                //this.setState({ mapQuestResult: [] });
+            }); */
     }
 
 }
