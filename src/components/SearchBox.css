@@ -1,0 +1,20 @@
+.searchStyleIner {
+  padding: "2px 4px";
+  display: "flex";
+  padding: 5px;
+  width: 400;
+}
+
+.mainSerachBox {
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  overflow: hidden;
+  width: 392px;
+  padding: 8px 0;
+}
+
+.searchBoxInput {
+    width: 80%;
+}
