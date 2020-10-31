@@ -1,10 +1,12 @@
 import React from 'react';
 import { searchModel } from "./../models/SearchModel";
+import './SearchResult.css'
 
 
 interface Props {
     result: Array<searchModel>;
     resultMapQuest: any;
+    onClickItem: (item: any) => void;
 }
 
 export class SearchResult<SearchBox> extends React.Component<Props> {
@@ -14,17 +16,18 @@ export class SearchResult<SearchBox> extends React.Component<Props> {
         //console.log("zmiana2")
     }
 
-    resultStyle = {
-        color: "black",
-        padding: '10px'
-    } as React.CSSProperties;
+    clickItem = ()=>{
+
+        this.props.onClickItem(this.props.result)
+    }
+
     render() {
         return (
             <div>
 
                 {this.props.result?.map((obj, index) => {
 
-                    return <div style={this.resultStyle} key={index}>{obj.display_name}</div>;
+                return <div className='item' key={index} onClick={this.clickItem}>{obj.display_name} </div>;
                 })}
 
                 s

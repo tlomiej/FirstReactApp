@@ -7,6 +7,7 @@ import InputBase from '@material-ui/core/InputBase/InputBase';
 import { IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import  "./SearchBox.css";
 
 
 interface Props {
@@ -43,10 +44,6 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         };
     }
 
-    searchStyle = {
-        background: 'white',
-    } as React.CSSProperties;
-
 
     componentDidUpdate(prevProps: any, prevState: any) {
         if (prevState.result !== this.state.result) {
@@ -57,14 +54,17 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         }
     }
 
+    onClickItemChanged(event: React.ChangeEventHandler){
+        console.log("test", event);
+    }
+
 
 
 
     render() {
         return (
-            <div style={this.searchStyle}>
-                <div className='searchStyleIner'>
-
+            <div>
+                <div className='mainSerachBox'>
                     {(() => {
                         switch (this.state.searchOnProgres) {
                             case true: return <LinearProgress />;
@@ -72,8 +72,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
                         }
                     })()}
                     <div className='searchBox'>
-
-                        <InputBase onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch}
+                        <InputBase  className='searchBoxInput' onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch}
                             placeholder="Wyszukaj"
                             inputProps={{ 'aria-label': 'search' }}
                         />
@@ -81,7 +80,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
                             <SearchIcon />
                         </IconButton>
                     </div>
-                    <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult}></SearchResult>
+                    <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult} onClickItem={this.onClickItemChanged}></SearchResult>
                 </div>
             </div>
         )

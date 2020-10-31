@@ -32,17 +32,11 @@
   padding: 12px;
 }
 
-.searchStyleIner {
-  padding: '2px 4px';
-  display: 'flex';
-  padding: 5px;
-  width: 400;
-}
-
 .iconButton {
   padding: 10,
 }
 
 .searchBox {
   width: 100%;
+  padding-left: 16px;
 }
