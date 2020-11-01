@@ -1,6 +1,8 @@
+import { eventNames } from 'process';
 import React from 'react';
 import { searchModel } from "./../models/SearchModel";
 import './SearchResult.css'
+import SearchResultItem from "./SearchResultItem";
 
 
 interface Props {
@@ -16,28 +18,18 @@ export class SearchResult<SearchBox> extends React.Component<Props> {
         //console.log("zmiana2")
     }
 
-    clickItem = ()=>{
+    clickItem = (event: any) => {
+        this.props.onClickItem(event)
 
-        this.props.onClickItem(this.props.result)
     }
 
     render() {
         return (
             <div>
-
                 {this.props.result?.map((obj, index) => {
-
-                return <div className='item' key={index} onClick={this.clickItem}>{obj.display_name} </div>;
+                   return <SearchResultItem  key={index} item={obj} onClickItem={this.clickItem}></SearchResultItem>
                 })}
-
-                s
-                {/*  MapQuest
-
-                <ul>
-                    {this.props.resultMapQuest.results[0].locations?.map((obj: any, index: any) => {
-                        return <li style={this.resultStyle} key={index}>{obj.adminArea5}</li>;
-                    })}
-                </ul> */}
+        
             </div>)
     }
 }
