@@ -17,7 +17,8 @@ interface Props {
     onGetData: (res: any) => void;
     onGetMapQuestData: (res: any) => void;
     mapQuestResult: any;
-    searchOnProgres?: boolean
+    searchOnProgres?: boolean;
+    onClickItem: (item: any) => void;
 }
 interface State {
     newSearch?: string;
@@ -27,6 +28,8 @@ interface State {
     onGetMapQuestData: (res: any) => void;
     mapQuestResult?: any;
     searchOnProgres?: boolean;
+    onClickItem: (item: any) => void;
+    
 
 }
 
@@ -40,7 +43,8 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
             mapQuestResult: { results: [{ locations: [] }] },
             onGetData: () => { },
             onGetMapQuestData: () => { },
-            searchOnProgres: false
+            searchOnProgres: false,
+            onClickItem: () => {}
         };
     }
 
@@ -65,12 +69,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         return (
             <div>
                 <div className='mainSerachBox'>
-                    {(() => {
-                        switch (this.state.searchOnProgres) {
-                            case true: return <LinearProgress />;
-
-                        }
-                    })()}
+                    {this.state.searchOnProgres ? <LinearProgress />: ``}
                     <div className='searchBox'>
                         <InputBase  className='searchBoxInput' onChange={this.onChangeSearch} value={this.props.newSearch} onKeyPress={this.onKeyPressSearch}
                             placeholder="Wyszukaj"
@@ -80,10 +79,10 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
                             <SearchIcon />
                         </IconButton>
                     </div>
-                    <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult} onClickItem={this.onClickItemChanged}></SearchResult>
+                    <SearchResult result={this.state.result} resultMapQuest={this.state.mapQuestResult} onClickItem={this.props.onClickItem}></SearchResult>
                 </div>
             </div>
-        )
+        );
     }
 
     onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {

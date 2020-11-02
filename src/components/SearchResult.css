@@ -11,3 +11,10 @@
     border-top: 1px solid #ccced3;
 }
 
+.item:hover {
+    background-color: red;
+}
+
+.item:active{
+    background-color: pink;
+}

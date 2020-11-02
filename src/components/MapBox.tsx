@@ -38,7 +38,7 @@ class MapBox extends React.Component<Props, State> {
             container: this.mapContainer,
             center: [this.props.longitude, this.props.latitude],
             style: 'mapbox://styles/mapbox/streets-v11',
-            zoom: 12,
+            zoom: 15,
             pitch: 45
         });
 
@@ -160,7 +160,7 @@ class MapBox extends React.Component<Props, State> {
             essential: true
         });
 
-       //setTimeout(() => {
+        //setTimeout(() => {
         //   this.rotateCamera(0);
         //}, 2000);
 
@@ -172,14 +172,22 @@ class MapBox extends React.Component<Props, State> {
         requestAnimationFrame(this.rotateCamera);
     }
 
+    onClikItem = (event: any) => {
+        console.log("TEST MAP", event)
+        this.map.flyTo({
+            center: [Number(event.lon), Number(event.lat)],
+            essential: true
+        });
+    }
+
     render(): JSX.Element {
         return (
             <div>
-              {/*   <div className='sidebarStyle'>
+                {/*   <div className='sidebarStyle'>
                     <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
                 </div> */}
                 <div className='searchStyle'>
-                    <SearchBox  onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch}></SearchBox>
+                    <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
                 </div>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
