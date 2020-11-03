@@ -10,21 +10,14 @@ interface Props {
 
 export class SearchResultItem<SearchBox> extends React.Component<Props> {
 
-    clickItem = ()=>{
+    clickItem = () => {
 
         this.props.onClickItem(this.props.item)
     }
 
     render() {
-        return (
-            <div>
-
-               
-                return <div className='item' onClick={this.clickItem}>{this.props.item.display_name} </div>;
-             
-
-               
-            </div>)
+        return <div className='item' onClick={this.clickItem}>{this.props.item.display_name}</div>;
+            
     }
 }
 

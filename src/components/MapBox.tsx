@@ -38,7 +38,7 @@ class MapBox extends React.Component<Props, State> {
             container: this.mapContainer,
             center: [this.props.longitude, this.props.latitude],
             style: 'mapbox://styles/mapbox/streets-v11',
-            zoom: 15,
+            zoom: 21,
             pitch: 45
         });
 

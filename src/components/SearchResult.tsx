@@ -3,6 +3,7 @@ import React from 'react';
 import { searchModel } from "./../models/SearchModel";
 import './SearchResult.css'
 import SearchResultItem from "./SearchResultItem";
+import List from '@material-ui/core/List';
 
 
 interface Props {
@@ -25,12 +26,15 @@ export class SearchResult<SearchBox> extends React.Component<Props> {
 
     render() {
         return (
-            <div>
+
+            <List className='listBox'>
                 {this.props.result?.map((obj, index) => {
-                   return <SearchResultItem  key={index} item={obj} onClickItem={this.clickItem}></SearchResultItem>
+                    return <SearchResultItem key={index} item={obj} onClickItem={this.clickItem}></SearchResultItem>
                 })}
-        
-            </div>)
+
+            </List>
+
+        )
     }
 }
 
