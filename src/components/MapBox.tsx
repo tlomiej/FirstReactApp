@@ -3,6 +3,7 @@ import mapboxgl from "mapbox-gl";
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./Map.css";
 import { SearchBox } from "./SearchBox"
+import * as turf from '@turf/turf'
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -114,6 +115,10 @@ class MapBox extends React.Component<Props, State> {
 
     }
 
+    private buildBbox(geojson: any) {
+        return turf.bbox(geojson)
+    }
+
     private getDataFromSearch = async (event: any) => {
         console.log("getDataFromSearch =>", event)
         let objectData: any = event.map((obj: any) => {
@@ -153,16 +158,20 @@ class MapBox extends React.Component<Props, State> {
             });
         }
         this.map.getSource('point').setData(geoJsonData);
+        const bbox = this.buildBbox(geoJsonData)
+        console.log("bbox",bbox)
         await this.map.fitBounds([
-            [32.958984, -5.353521],
-            [43.50585, 5.615985]
-            ]);
-/*         await this.map.flyTo({
-            center:
-                objectData[0].geometry.coordinates
-            ,
-            essential: true
-        }); */
+            [ [bbox[3], bbox[1]],[bbox[2], bbox[0]],]
+        ]);
+
+        //[-4.8995204, 4.62, 33.9096888, 41.9067502]
+        //2,0 ,3,2
+        /*         await this.map.flyTo({
+                    center:
+                        objectData[0].geometry.coordinates
+                    ,
+                    essential: true
+                }); */
 
         //setTimeout(() => {
         //   this.rotateCamera(0);
@@ -177,14 +186,12 @@ class MapBox extends React.Component<Props, State> {
     }
 
     onClikItem = (event: any) => {
-        let box = event.boundingbox.every((el: string) => Number(el))
-        this.map.fitBounds([
-            [[box[0],box[2]],[box[1], box[3]]]
-            ]);
-        // this.map.flyTo({
-        //     center: [Number(event.lon), Number(event.lat)],
-        //     essential: true
-        // });
+        let box = event.boundingbox.map((el: string) => Number(el))
+        console.log([[box[0], box[2]], [box[1], box[3]]])
+        console.log([[box[3], box[2]], [box[3], box[1]]])
+        this.map.fitBounds(
+            [[box[2], box[0]], [box[3], box[1]]]
+        );
     }
 
     render(): JSX.Element {

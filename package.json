@@ -19,7 +19,9 @@
     "react-dom": "^16.13.1",
     "react-map-gl": "^3.3.0",
     "react-scripts": "3.4.3",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "@turf/boolean-contains": "^4.6.1",
+    "@turf/turf": "^4.6.1"
   },
   "scripts": {
     "start": "react-scripts start",
