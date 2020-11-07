@@ -159,25 +159,9 @@ class MapBox extends React.Component<Props, State> {
         }
         this.map.getSource('point').setData(geoJsonData);
         const bbox = this.buildBbox(geoJsonData)
-        console.log("bbox",bbox)
-        await this.map.fitBounds([
-            [ [bbox[3], bbox[1]],[bbox[2], bbox[0]],]
-        ]);
-
-        //[-4.8995204, 4.62, 33.9096888, 41.9067502]
-        //2,0 ,3,2
-        /*         await this.map.flyTo({
-                    center:
-                        objectData[0].geometry.coordinates
-                    ,
-                    essential: true
-                }); */
-
-        //setTimeout(() => {
-        //   this.rotateCamera(0);
-        //}, 2000);
-
-
+        await this.map.fitBounds(
+            [[bbox[0], bbox[1]], [bbox[2], bbox[3]]]
+        );
     }
 
     rotateCamera = (timestamp: number) => {
@@ -187,11 +171,9 @@ class MapBox extends React.Component<Props, State> {
 
     onClikItem = (event: any) => {
         let box = event.boundingbox.map((el: string) => Number(el))
-        console.log([[box[0], box[2]], [box[1], box[3]]])
-        console.log([[box[3], box[2]], [box[3], box[1]]])
         this.map.fitBounds(
             [[box[2], box[0]], [box[3], box[1]]]
-        );
+            , { padding: 20 });
     }
 
     render(): JSX.Element {

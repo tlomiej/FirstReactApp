@@ -105,7 +105,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
 
     getData() {
         this.setState({ searchOnProgres: true })
-        const url = `https://nominatim.openstreetmap.org/?addressdetails=1&q=${this.state.newSearch}&format=json&limit=100`;
+        const url = `https://nominatim.openstreetmap.org/?addressdetails=1&q=${this.state.newSearch}&format=json&limit=10`;
         fetch(url)
             .then(response => response.json())
             .then(data => {

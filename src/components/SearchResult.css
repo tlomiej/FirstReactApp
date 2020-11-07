@@ -25,3 +25,23 @@
     overflow: auto;
     max-height: 80vh;
 }
+
+
+.root {
+    maxWidth: 345;
+  }
+  .media {
+    height: 0;
+    paddingTop: '56.25%'; 
+  }
+  .expand {
+    transform: 'rotate(0deg)';
+    margin-left: 'auto';
+  }
+
+  .expandOpen{
+    transform: 'rotate(180deg)';
+  }
+  .avatar {
+    background-color: red[500];
+  }
