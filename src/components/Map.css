@@ -4,6 +4,7 @@
   right: 0;
   left: 0;
   bottom: 0;
+  overflow: hidden;
   width:100%
 }
 
@@ -40,3 +41,4 @@
   width: 100%;
   padding-left: 16px;
 }
+

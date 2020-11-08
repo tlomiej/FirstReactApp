@@ -1,6 +1,5 @@
 import React from "react";
 import mapboxgl from "mapbox-gl";
-//import mapboxgldraw from "@mapbox/mapbox-gl-draw";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
@@ -8,8 +7,6 @@ import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./Map.css";
 import { SearchBox } from "./SearchBox"
 import * as turf from '@turf/turf'
-//import './mapbox-gl-draw.css'
-//import theme from '@mapbox/mapbox-gl-draw/src/lib/theme';
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
