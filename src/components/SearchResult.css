@@ -17,10 +17,10 @@
     outline: none;
 }
 
-.item:active{
+/* .item:active{
     background-color: pink;
 }
-
+ */
 .listBox {
     overflow: auto;
     max-height: 80vh;
@@ -28,11 +28,11 @@
 
 
 .root {
-    maxWidth: 345;
+    max-width: 345;
   }
   .media {
     height: 0;
-    paddingTop: '56.25%'; 
+    padding-top: '56.25%'; 
   }
   .expand {
     transform: 'rotate(0deg)';

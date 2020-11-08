@@ -44,7 +44,7 @@ export class SearchResultItem<SearchBox> extends React.Component<Props> {
        onClick={this.clickItem}
         avatar={
           <Avatar aria-label="recipe" className='avatar'>
-            R
+            {this.props.item.type.charAt(0).toUpperCase()}
           </Avatar>
         }
         action={
@@ -53,7 +53,7 @@ export class SearchResultItem<SearchBox> extends React.Component<Props> {
           </IconButton>
         }
         title={this.props.item.display_name}
-        subheader="September 14, 2016"
+        subheader={this.props.item.type}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -67,28 +67,7 @@ export class SearchResultItem<SearchBox> extends React.Component<Props> {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        {/* <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton> */}
       </CardActions>
-      <Collapse in={false} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            opis
-          </Typography>
-          <Typography paragraph>
-           opis2
-          </Typography>
-        </CardContent>
-      </Collapse>
     </Card></div>);
 
     }

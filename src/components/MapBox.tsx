@@ -1,9 +1,13 @@
 import React from "react";
 import mapboxgl from "mapbox-gl";
+//import mapboxgldraw from "@mapbox/mapbox-gl-draw";
+// @ts-ignore
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./Map.css";
 import { SearchBox } from "./SearchBox"
 import * as turf from '@turf/turf'
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -43,6 +47,16 @@ class MapBox extends React.Component<Props, State> {
             pitch: 45
         });
 
+        var draw = new MapboxDraw({
+            displayControlsDefault: false,
+            controls: {
+                polygon: true,
+                trash: true
+            }
+        });
+        this.map.addControl(draw, 'top-right');
+
+
         this.map.on('load', () => {
 
             this.map.addSource('point', {
@@ -71,6 +85,7 @@ class MapBox extends React.Component<Props, State> {
                 zoom: this.map.getZoom().toFixed(2)
             });
         });
+
 
     }
 
