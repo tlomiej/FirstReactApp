@@ -3,11 +3,13 @@ import mapboxgl from "mapbox-gl";
 //import mapboxgldraw from "@mapbox/mapbox-gl-draw";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./Map.css";
 import { SearchBox } from "./SearchBox"
 import * as turf from '@turf/turf'
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
+//import './mapbox-gl-draw.css'
+//import theme from '@mapbox/mapbox-gl-draw/src/lib/theme';
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -27,6 +29,7 @@ class MapBox extends React.Component<Props, State> {
     private mapContainer: any;
     private map: any;
     private marker: any;
+    private draw: any;
 
     constructor(props: any) {
         super(props);
@@ -47,14 +50,15 @@ class MapBox extends React.Component<Props, State> {
             pitch: 45
         });
 
-        var draw = new MapboxDraw({
-            displayControlsDefault: false,
+        this.draw = new MapboxDraw({
+            displayControlsDefault: true,
             controls: {
+                point: true,
                 polygon: true,
                 trash: true
             }
         });
-        this.map.addControl(draw, 'top-right');
+        this.map.addControl(this.draw, 'top-left');
 
 
         this.map.on('load', () => {
@@ -86,7 +90,16 @@ class MapBox extends React.Component<Props, State> {
             });
         });
 
+        this.map.on('draw.create', this.drawLog);
+        this.map.on('draw.delete', this.drawLog);
+        this.map.on('draw.update', this.drawLog);
+ 
 
+
+    }
+
+    drawLog = ()=>{
+        console.log("draw", this.draw.getAll())
     }
 
     private getDataFromMapQuest = (event: any) => {
