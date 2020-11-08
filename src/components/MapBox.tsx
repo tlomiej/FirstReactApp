@@ -48,15 +48,15 @@ class MapBox extends React.Component<Props, State> {
         });
 
         this.draw = new MapboxDraw({
-            displayControlsDefault: true,
+            displayControlsDefault: false,
             controls: {
                 point: true,
                 polygon: true,
                 trash: true
             }
         });
-        this.map.addControl(this.draw, 'top-left');
-
+        this.map.addControl(new mapboxgl.NavigationControl());
+        this.map.addControl(this.draw, 'top-right');
 
         this.map.on('load', () => {
 
