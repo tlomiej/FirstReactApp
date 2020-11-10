@@ -32,6 +32,15 @@
   z-index: 1 !important;
   padding: 12px;
 }
+.fireBaseStyle {
+  display: inline-block;
+  position: absolute;
+  margin: 6px;
+  margin-left: 400px;
+  color: red;
+  z-index: 1 !important;
+  padding: 12px;
+}
 
 .iconButton {
   padding: 10,

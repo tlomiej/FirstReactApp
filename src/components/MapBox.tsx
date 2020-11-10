@@ -1,12 +1,14 @@
-import React from "react";
-import mapboxgl from "mapbox-gl";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+import * as turf from '@turf/turf';
+import mapboxgl from "mapbox-gl";
+import React from "react";
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./../css/Map.css";
-import { SearchBox } from "./SearchBox"
-import * as turf from '@turf/turf'
+import { SearchBox } from "./SearchBox";
+
+import FireBaseStart from "./FireBaseStart";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -209,6 +211,9 @@ class MapBox extends React.Component<Props, State> {
                 </div> */}
                 <div className='searchStyle'>
                     <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
+                </div>
+                <div className='fireBaseStyle'>
+                    <FireBaseStart></FireBaseStart>
                 </div>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
