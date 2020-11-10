@@ -4,7 +4,7 @@ import mapboxgl from "mapbox-gl";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
-import "./Map.css";
+import "./../css/Map.css";
 import { SearchBox } from "./SearchBox"
 import * as turf from '@turf/turf'
 

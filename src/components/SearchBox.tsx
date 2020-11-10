@@ -7,7 +7,7 @@ import InputBase from '@material-ui/core/InputBase/InputBase';
 import { IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import  "./SearchBox.css";
+import  "./../css/SearchBox.css";
 
 
 interface Props {

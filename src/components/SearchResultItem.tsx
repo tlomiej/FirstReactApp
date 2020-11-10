@@ -1,6 +1,6 @@
 import { eventNames } from 'process';
 import React from 'react';
-import './SearchResult.css'
+import './../css/SearchResult.css'
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';

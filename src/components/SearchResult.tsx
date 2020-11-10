@@ -1,7 +1,7 @@
 import { eventNames } from 'process';
 import React from 'react';
 import { searchModel } from "./../models/SearchModel";
-import './SearchResult.css'
+import './../css/SearchResult.css'
 import SearchResultItem from "./SearchResultItem";
 import List from '@material-ui/core/List';
 
