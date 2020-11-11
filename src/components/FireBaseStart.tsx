@@ -2,35 +2,52 @@ import { IconButton } from '@material-ui/core';
 import firebase from 'firebase//app';
 //import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/firestore';
 import React from 'react';
 import { firebaseConfig } from "./../models/FirebaseConfig";
 import SearchIcon from '@material-ui/icons/Search';
 
 interface Props {
     firebaseData?: any;
+    data? :any;
 }
 
 export default class FireBaseStart<Firebase> extends React.Component<Props>{
 
 
-    componentDidMount() {
+    saveDate(){
+        firebase.database().ref('zgloszenia').set([{
+            opis: "OPIS test...123"
+          }], (error) => {
+            if (error) {
+              console.log(`Save error ${error}`)
+            } else {
+                console.log("Save OK")
+
+            }
+          });
+    }
+
+    async getData() {
+ 
+        const dem : any= [];
+        await firebase.firestore().collection('zgloszenia').get()
+          .then(querySnapshot => {
+            querySnapshot.docs.forEach(doc => {
+            dem.push(doc.data());
+          });
+        });
+        return dem;
+      }
+
+    async componentDidMount() {
         // Initialize Firebase
 
         console.log("Firebase START")
         firebase.initializeApp(firebaseConfig);
-        let zgloszeniaRef = firebase.database().ref("zgloszenia");
-
-        console.log("Firebase", zgloszeniaRef)
-
-        zgloszeniaRef.ref.on("value", function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-             let childData = childSnapshot.val();
-             //var id=childData.id;
-             console.log('Firebase',childData);
-            });
-           });
-        
-           console.log("Firebase KONIEC")
+        this.saveDate();
+        let data = await this.getData();
+         console.log("Firebase KONIEC", data)
 
     }
 
