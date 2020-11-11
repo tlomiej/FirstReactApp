@@ -16,16 +16,9 @@ export default class FireBaseStart<Firebase> extends React.Component<Props>{
 
 
     saveDate(){
-        firebase.database().ref('zgloszenia').set([{
+        firebase.firestore().collection('zgloszenia').add({
             opis: "OPIS test...123"
-          }], (error) => {
-            if (error) {
-              console.log(`Save error ${error}`)
-            } else {
-                console.log("Save OK")
-
-            }
-          });
+          })
     }
 
     async getData() {
