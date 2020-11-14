@@ -7,6 +7,7 @@ import React from "react";
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./../css/Map.css";
 import { SearchBox } from "./SearchBox";
+import SingUpButton from "./SingUpButton";
 
 import FireBaseStart from "./FireBaseStart";
 
@@ -209,10 +210,13 @@ class MapBox extends React.Component<Props, State> {
                 {/*   <div className='sidebarStyle'>
                     <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
                 </div> */}
+
+
                 <div className='searchStyle'>
                     <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
                 </div>
                 <div className='fireBaseStyle'>
+                    <SingUpButton></SingUpButton>
                     <FireBaseStart></FireBaseStart>
                 </div>
 

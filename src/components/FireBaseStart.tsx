@@ -1,5 +1,5 @@
 import { IconButton } from '@material-ui/core';
-import firebase from 'firebase//app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
@@ -42,9 +42,8 @@ export default class FireBaseStart<Firebase> extends React.Component<Props>{
         const email = `test${Math.random()}`.replace('.', '') + `@test.pl`
         const pass = 'haslo1234'
         auth.createUserWithEmailAndPassword(email, pass)
-
-
     }
+
 
 
     async componentDidMount() {
@@ -57,7 +56,9 @@ export default class FireBaseStart<Firebase> extends React.Component<Props>{
         let data = await this.getData();
         console.log("Firebase KONIEC", data)
 
-        this.author(auth)
+        //this.author(auth)
+        auth.signInWithEmailAndPassword("test06576130067340669@test.pl", "haslo1234")
+       
         firebase.auth().onAuthStateChanged((user) => {
             console.log("auth???", user)
         })
