@@ -4,7 +4,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import SingUp from "./SingUp";
 
-export default function SingUpButton() {
+
+interface Props {
+    email?: string;
+    password?: string
+}
+export default function SingUpButton(props: Props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -15,13 +20,19 @@ export default function SingUpButton() {
         setOpen(false);
     };
 
+    const handleCreateAccount = (email: string, password: string) => {
+        console.log("XXXXXxx", email, password )
+    }
+
+
+
     return (
         <div>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Login
         </Button>
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-                <SingUp></SingUp>
+                <SingUp createAccount={handleCreateAccount}></SingUp>
             </Dialog>
         </div>
     );

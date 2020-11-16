@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef  } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,8 +46,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+interface Props {
+  onClickItem?: (item: any) => void;
+  createAccount: (email: string, password: string) => void;
+}
+
+export default function SignUp(props: Props) {
   const classes = useStyles();
+
+  const emailRef =  React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  const passwordRef =  React.useRef() as React.MutableRefObject<HTMLInputElement>;
+
+
+
+
+  const clickCreateAccount = () => {
+    console.log(emailRef, passwordRef.current.value, "DDDD")
+   // props.createAccount(emailRef.current.value, passwordRef)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -61,7 +77,7 @@ export default function SignUp() {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            {/*  <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
                 name="firstName"
@@ -83,7 +99,7 @@ export default function SignUp() {
                 name="lastName"
                 autoComplete="lname"
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -93,6 +109,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                ref={emailRef} 
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,6 +122,7 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                ref={passwordRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -115,11 +133,11 @@ export default function SignUp() {
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={clickCreateAccount}
           >
             Sign Up
           </Button>
