@@ -1,4 +1,4 @@
-import React, { useRef  } from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -54,15 +54,17 @@ interface Props {
 export default function SignUp(props: Props) {
   const classes = useStyles();
 
-  const emailRef =  React.useRef() as React.MutableRefObject<HTMLInputElement>;
-  const passwordRef =  React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  //const emailRef =  React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  //const passwordRef =  React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
 
 
 
   const clickCreateAccount = () => {
-    console.log(emailRef, passwordRef.current.value, "DDDD")
-   // props.createAccount(emailRef.current.value, passwordRef)
+    console.log(email, "DDDD")
+    props.createAccount(email, password)
   }
 
   return (
@@ -109,7 +111,8 @@ export default function SignUp(props: Props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                ref={emailRef} 
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -122,7 +125,8 @@ export default function SignUp(props: Props) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                ref={passwordRef}
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>

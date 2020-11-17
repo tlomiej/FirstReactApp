@@ -16,6 +16,7 @@ mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 type Props = {
     longitude: number;
     latitude: number;
+
 };
 
 type State = {
@@ -24,7 +25,11 @@ type State = {
     zoom: number,
     data?: any
     points: Array<Object>
+    email: string;
+    password: string;
 };
+
+
 class MapBox extends React.Component<Props, State> {
     private mapContainer: any;
     private map: any;
@@ -37,8 +42,11 @@ class MapBox extends React.Component<Props, State> {
             lng: 5,
             lat: 34,
             zoom: 0,
-            points: []
+            points: [],
+            email: '',
+            password: ''
         };
+        
     }
 
     componentDidMount(): void {
@@ -204,6 +212,13 @@ class MapBox extends React.Component<Props, State> {
             , { padding: 20 });
     }
 
+    handleCreateAccount =  (email: string, password: string) => {
+        console.log("MAPBOXXXX", email, password)
+        this.setState({email: email})
+
+
+    }
+
     render(): JSX.Element {
         return (
             <div>
@@ -216,8 +231,8 @@ class MapBox extends React.Component<Props, State> {
                     <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
                 </div>
                 <div className='fireBaseStyle'>
-                    <SingUpButton></SingUpButton>
-                    <FireBaseStart></FireBaseStart>
+                    <SingUpButton createAccount={this.handleCreateAccount}></SingUpButton>
+                    <FireBaseStart email={this.state.email}></FireBaseStart>
                 </div>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />

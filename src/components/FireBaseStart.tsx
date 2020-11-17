@@ -13,6 +13,8 @@ import SearchIcon from '@material-ui/icons/Search';
 interface Props {
     firebaseData?: any;
     data?: any;
+    email: string;
+    createAccount?: (email: string, password: string) => void;
 }
 
 export default class FireBaseStart<Firebase> extends React.Component<Props>{
@@ -49,6 +51,7 @@ export default class FireBaseStart<Firebase> extends React.Component<Props>{
     async componentDidMount() {
         // Initialize Firebase
 
+
         console.log("Firebase START")
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth()
@@ -65,9 +68,13 @@ export default class FireBaseStart<Firebase> extends React.Component<Props>{
 
 
     }
+    componentDidUpdate() {
+        console.log("GGGGG", this.props.email)
+    }
 
     onClick() {
         console.log("Get data")
+        console.log("GGGGG", this.props.email)
     }
 
 
