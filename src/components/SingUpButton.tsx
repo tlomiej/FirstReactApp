@@ -21,7 +21,6 @@ export default function SingUpButton(props: Props) {
     };
 
     const handleCreateAccount = (email: string, password: string) => {
-        console.log("XXXXXxx", email, password)
         props.createAccount(email, password)
         setOpen(false);
     }

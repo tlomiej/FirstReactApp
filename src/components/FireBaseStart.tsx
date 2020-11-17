@@ -14,11 +14,12 @@ interface Props {
     firebaseData?: any;
     data?: any;
     email: string;
+    password: string;
     createAccount?: (email: string, password: string) => void;
+    login?: boolean;
 }
 
 export default class FireBaseStart<Firebase> extends React.Component<Props>{
-
 
     saveDate() {
         firebase.firestore().collection('zgloszenia').add({
@@ -55,7 +56,7 @@ export default class FireBaseStart<Firebase> extends React.Component<Props>{
         console.log("Firebase START")
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth()
-        this.saveDate();
+        //this.saveDate();
         let data = await this.getData();
         console.log("Firebase KONIEC", data)
 
@@ -69,7 +70,19 @@ export default class FireBaseStart<Firebase> extends React.Component<Props>{
 
     }
     componentDidUpdate() {
-        console.log("GGGGG", this.props.email)
+        const auth = firebase.auth()
+        const aaa = auth.signInWithEmailAndPassword( this.props.email, this.props.password).then((user) => {
+            console.log(user)
+            
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+            
+          });
+        
+        console.log("SSSSSS", aaa)
     }
 
     onClick() {

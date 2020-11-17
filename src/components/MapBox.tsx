@@ -10,6 +10,7 @@ import { SearchBox } from "./SearchBox";
 import SingUpButton from "./SingUpButton";
 
 import FireBaseStart from "./FireBaseStart";
+import FireBaseLogin from "./FireBaseLogin";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -46,7 +47,7 @@ class MapBox extends React.Component<Props, State> {
             email: '',
             password: ''
         };
-        
+
     }
 
     componentDidMount(): void {
@@ -101,12 +102,12 @@ class MapBox extends React.Component<Props, State> {
         this.map.on('draw.create', this.drawLog);
         this.map.on('draw.delete', this.drawLog);
         this.map.on('draw.update', this.drawLog);
- 
+
 
 
     }
 
-    drawLog = ()=>{
+    drawLog = () => {
         console.log("draw", this.draw.getAll())
     }
 
@@ -212,9 +213,10 @@ class MapBox extends React.Component<Props, State> {
             , { padding: 20 });
     }
 
-    handleCreateAccount =  (email: string, password: string) => {
+    handleCreateAccount = (email: string, password: string) => {
         console.log("MAPBOXXXX", email, password)
-        this.setState({email: email})
+        this.setState({ email })
+        this.setState({ password })
 
 
     }
@@ -232,7 +234,8 @@ class MapBox extends React.Component<Props, State> {
                 </div>
                 <div className='fireBaseStyle'>
                     <SingUpButton createAccount={this.handleCreateAccount}></SingUpButton>
-                    <FireBaseStart email={this.state.email}></FireBaseStart>
+                    <FireBaseStart email={this.state.email} password={this.state.password}></FireBaseStart>
+                    <FireBaseLogin></FireBaseLogin>
                 </div>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
