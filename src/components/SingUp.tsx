@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,23 +36,27 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   onClickItem?: (item: any) => void;
   createAccount?: (email: string, password: string) => void;
+  login: (email: string, password: string) => void;
 }
 
 export default function SignUp(props: Props) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [startlogin, setStartlogin] = useState(false);
 
 
 
 
   const clickCreateAccount = () => {
-   // props.createAccount(email, password)
+    setStartlogin(true)
+    props.login(email, password)
   }
 
   return (
     
     <Container component="main" maxWidth="xs">
+      {startlogin ? <LinearProgress />: ``}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

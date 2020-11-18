@@ -54,7 +54,7 @@ export default class FireBaseStart<Firebase> extends React.Component<Props>{
 
 
         console.log("Firebase START")
-        firebase.initializeApp(firebaseConfig);
+        //firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth()
         //this.saveDate();
         let data = await this.getData();

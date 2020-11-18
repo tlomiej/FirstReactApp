@@ -7,7 +7,7 @@ import SingUp from "./SingUp";
 interface Props {
     email?: any;
     password?: string;
-    createAccount: (email: string, password: string) => void;
+    createAccount?: (email: string, password: string) => void;
 }
 export default function SingUpButton(props: Props) {
     const [open, setOpen] = React.useState(false);
@@ -20,10 +20,10 @@ export default function SingUpButton(props: Props) {
         setOpen(false);
     };
 
-    const handleCreateAccount = (email: string, password: string) => {
-        props.createAccount(email, password)
-        setOpen(false);
-    }
+    //const handleCreateAccount = (email: string, password: string) => {
+        //props.createAccount(email, password)
+        //setOpen(false);
+   // }
 
 
 
@@ -33,7 +33,7 @@ export default function SingUpButton(props: Props) {
                 Login
             </Button>
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-                <SingUp createAccount={handleCreateAccount}></SingUp>
+                {/* <SingUp createAccount={handleCreateAccount}></SingUp> */}
             </Dialog>
         </div>
     );

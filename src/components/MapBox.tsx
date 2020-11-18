@@ -9,7 +9,7 @@ import "./../css/Map.css";
 import { SearchBox } from "./SearchBox";
 import SingUpButton from "./SingUpButton";
 
-import FireBaseStart from "./FireBaseStart";
+//import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -234,7 +234,7 @@ class MapBox extends React.Component<Props, State> {
                 </div>
                 <div className='fireBaseStyle'>
                     <SingUpButton createAccount={this.handleCreateAccount}></SingUpButton>
-                    <FireBaseStart email={this.state.email} password={this.state.password}></FireBaseStart>
+                    {/* <FireBaseStart email={this.state.email} password={this.state.password}></FireBaseStart> */}
                     <FireBaseLogin></FireBaseLogin>
                 </div>
 

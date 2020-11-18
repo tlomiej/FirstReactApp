@@ -4,6 +4,7 @@ import 'firebase/auth';
 import React from 'react';
 import { firebaseConfig } from "../models/FirebaseConfig";
 import PersonIcon from '@material-ui/icons/Person';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import SingUp from "./SingUp";
@@ -17,6 +18,7 @@ export default function SingUpButton(props: Props) {
 
 
     const componentDidMount = () => {
+        firebase.initializeApp(firebaseConfig);
 
         // firebase.initializeApp(firebaseConfig);
         //const auth = firebase.auth()
@@ -52,16 +54,36 @@ export default function SingUpButton(props: Props) {
     }
 
     const login = () => {
-
+        setOpen(true);
     }
 
     const createAccount = () => {
-        setOpen(true);
+
 
     }
 
     const handleClose = () => {
         setOpen(true)
+    }
+    const handleLogin = (email: string, password: string) => {
+        
+        const auth = firebase.auth()
+
+        auth.signInWithEmailAndPassword(email, password).then((user) => {
+            console.log(user)
+            setOpen(false)
+
+        })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode, errorMessage)
+
+            });
+    }
+
+    const loginOut = () => {
+        console.log("Wylogowano")
     }
 
     return (
@@ -71,11 +93,14 @@ export default function SingUpButton(props: Props) {
             <IconButton title="Login" type="submit" onClick={login} className='iconButton' aria-label="search">
                 <PersonIcon />
             </IconButton>
+            <IconButton title="" type="submit" onClick={loginOut} className='iconButton' aria-label="search">
+                <AccountCircleIcon />
+            </IconButton>
             <IconButton title="Create account" type="submit" onClick={createAccount} className='iconButton' aria-label="search">
                 <PersonAddIcon />
             </IconButton>
             <Dialog onClose={handleClose} open={open}>
-                <SingUp></SingUp>
+                <SingUp login={handleLogin}></SingUp>
             </Dialog>
 
 
