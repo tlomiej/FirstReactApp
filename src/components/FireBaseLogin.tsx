@@ -2,23 +2,33 @@ import { Dialog, IconButton } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import React from 'react';
-import { firebaseConfig } from "../models/FirebaseConfig";
+import { fdb } from "../models/FirebaseConfig";
 import PersonIcon from '@material-ui/icons/Person';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 import SingUp from "./SingUp";
+import Snackbar from '@material-ui/core/Snackbar/Snackbar';
 
 interface Props {
     login?: boolean;
 }
 
+function Alert(props: AlertProps) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
 export default function SingUpButton(props: Props) {
     const [open, setOpen] = React.useState(false);
+    const [loged, setLoged] = React.useState(false);
+    const [user, setUser] = React.useState({});
 
+
+   
 
     const componentDidMount = () => {
-        firebase.initializeApp(firebaseConfig);
+
 
         // firebase.initializeApp(firebaseConfig);
         //const auth = firebase.auth()
@@ -65,13 +75,19 @@ export default function SingUpButton(props: Props) {
     const handleClose = () => {
         setOpen(true)
     }
+
     const handleLogin = (email: string, password: string) => {
-        
-        const auth = firebase.auth()
+
+        const auth = fdb.auth()
 
         auth.signInWithEmailAndPassword(email, password).then((user) => {
-            console.log(user)
-            setOpen(false)
+            console.log(user, user.user, user.credential);
+
+
+            setUser(user);
+            setOpen(false);
+            setLoged(true);
+
 
         })
             .catch((error) => {
@@ -84,19 +100,33 @@ export default function SingUpButton(props: Props) {
 
     const loginOut = () => {
         console.log("Wylogowano")
+        firebase.auth().signOut().then(() => {
+            setLoged(false);
+        }).catch(function (error) {
+            console.log("singOut", error)
+        });
+    }
+
+    const singOutSnackbarInfo = () => {
+        return (<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+                This is a success message!
+            </Alert>
+        </Snackbar>)
     }
 
     return (
         <div>
 
-
-            <IconButton title="Login" type="submit" onClick={login} className='iconButton' aria-label="search">
-                <PersonIcon />
-            </IconButton>
-            <IconButton title="" type="submit" onClick={loginOut} className='iconButton' aria-label="search">
+            { loged ? (<IconButton title="Log out " className="logout" type="submit" onClick={loginOut} aria-label="search">
                 <AccountCircleIcon />
-            </IconButton>
-            <IconButton title="Create account" type="submit" onClick={createAccount} className='iconButton' aria-label="search">
+            </IconButton>) : (<IconButton title="Login" className="login" type="submit" onClick={login} aria-label="search">
+                <PersonIcon />
+            </IconButton>)}
+
+
+
+            <IconButton title="Create account" className="create" type="submit" onClick={createAccount} aria-label="search">
                 <PersonAddIcon />
             </IconButton>
             <Dialog onClose={handleClose} open={open}>
