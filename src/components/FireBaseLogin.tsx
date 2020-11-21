@@ -6,19 +6,15 @@ import { fdb } from "../models/FirebaseConfig";
 import PersonIcon from '@material-ui/icons/Person';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 import SingUp from "./SingUp";
-import Snackbar from '@material-ui/core/Snackbar/Snackbar';
 
 interface Props {
     login?: boolean;
 }
 
-function Alert(props: AlertProps) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
 
+  
 export default function SingUpButton(props: Props) {
     const [open, setOpen] = React.useState(false);
     const [loged, setLoged] = React.useState(false);
@@ -69,6 +65,9 @@ export default function SingUpButton(props: Props) {
 
     const createAccount = () => {
 
+        console.log("nowe konto")
+    
+
 
     }
 
@@ -102,17 +101,10 @@ export default function SingUpButton(props: Props) {
         console.log("Wylogowano")
         firebase.auth().signOut().then(() => {
             setLoged(false);
+            
         }).catch(function (error) {
             console.log("singOut", error)
         });
-    }
-
-    const singOutSnackbarInfo = () => {
-        return (<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
-                This is a success message!
-            </Alert>
-        </Snackbar>)
     }
 
     return (
