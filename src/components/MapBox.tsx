@@ -233,7 +233,7 @@ class MapBox extends React.Component<Props, State> {
                     <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
                 </div>
                 <div className='fireBaseStyle'>
-                    <SingUpButton createAccount={this.handleCreateAccount}></SingUpButton>
+                 {/*    <SingUpButton createAccount={this.handleCreateAccount}></SingUpButton> */}
                     {/* <FireBaseStart email={this.state.email} password={this.state.password}></FireBaseStart> */}
                     <FireBaseLogin></FireBaseLogin>
                 </div>

@@ -37,6 +37,8 @@ interface Props {
   onClickItem?: (item: any) => void;
   createAccount?: (email: string, password: string) => void;
   login: (email: string, password: string) => void;
+  label: string;
+  infoMessage: string;
 }
 
 export default function SignUp(props: Props) {
@@ -63,7 +65,7 @@ export default function SignUp(props: Props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          {props.label}
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -104,6 +106,7 @@ export default function SignUp(props: Props) {
           >
             Sign Up
           </Button>
+          {props.infoMessage}
         </form>
       </div>
     </Container>

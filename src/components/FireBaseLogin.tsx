@@ -14,48 +14,17 @@ interface Props {
 }
 
 
-  
+
 export default function SingUpButton(props: Props) {
-    const [open, setOpen] = React.useState(false);
+    const [openLoginDialog, setOpen] = React.useState(false);
+    const [openSignInDialog, setOpenSignInDialog] = React.useState(false);
     const [loged, setLoged] = React.useState(false);
     const [user, setUser] = React.useState({});
+    const [infoMessage, setInfoMessage] = React.useState('');
+    const [infoMessageLogin, setInfoMessageLogin] = React.useState('');
 
-
-   
-
-    const componentDidMount = () => {
-
-
-        // firebase.initializeApp(firebaseConfig);
-        //const auth = firebase.auth()
-
-        //this.author(auth)
-        // auth.signInWithEmailAndPassword("test06576130067340669@test.pl", "haslo1234")
-
-        // firebase.auth().onAuthStateChanged((user) => {
-        //     console.log("auth???", user)
-        // })
-
-
-    }
-    /*     componentDidUpdate() {
-            const auth = firebase.auth()
-            const aaa = auth.signInWithEmailAndPassword(this.props.email, this.props.password).then((user) => {
-                console.log(user)
-    
-            })
-                .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.log(errorCode, errorMessage)
-    
-                });
-    
-            console.log("SSSSSS", aaa)
-        } */
 
     const onClick = () => {
-        console.log("Get data")
         console.log("Get data")
     }
 
@@ -64,16 +33,35 @@ export default function SingUpButton(props: Props) {
     }
 
     const createAccount = () => {
-
         console.log("nowe konto")
-    
-
-
+        setOpenSignInDialog(true)
     }
 
-    const handleClose = () => {
-        setOpen(true)
+    const handleCreateAccount = (email: string, password: string) => {
+        console.log("Tworze konto")
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((user) => {
+                console.log(`Account created`, user);
+                setOpenSignInDialog(false)
+            })
+            .catch((error) => {
+                console.log("Create account", error)
+                var errorCode = error.code;
+                setInfoMessage(error.message);
+
+
+            });
     }
+
+    const handleCloseLogin = () => {
+        setOpen(false);
+    }
+    const handleCloseSignIn = () => {
+        setOpenSignInDialog(false);
+    }
+
+
+
 
     const handleLogin = (email: string, password: string) => {
 
@@ -90,10 +78,7 @@ export default function SingUpButton(props: Props) {
 
         })
             .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode, errorMessage)
-
+                setInfoMessageLogin(error.message)
             });
     }
 
@@ -101,7 +86,7 @@ export default function SingUpButton(props: Props) {
         console.log("Wylogowano")
         firebase.auth().signOut().then(() => {
             setLoged(false);
-            
+
         }).catch(function (error) {
             console.log("singOut", error)
         });
@@ -112,17 +97,25 @@ export default function SingUpButton(props: Props) {
 
             { loged ? (<IconButton title="Log out " className="logout" type="submit" onClick={loginOut} aria-label="search">
                 <AccountCircleIcon />
-            </IconButton>) : (<IconButton title="Login" className="login" type="submit" onClick={login} aria-label="search">
-                <PersonIcon />
-            </IconButton>)}
+            </IconButton>) : (
+                    <IconButton title="Login" className="login" type="submit" onClick={login} aria-label="search">
+                        <PersonIcon />
+                    </IconButton>
+                )}
+            { loged ? ("") : (
+                <IconButton title="Create account" className="create" type="submit" onClick={createAccount} aria-label="search">
+                    <PersonAddIcon />
+                </IconButton>
+            )}
 
 
 
-            <IconButton title="Create account" className="create" type="submit" onClick={createAccount} aria-label="search">
-                <PersonAddIcon />
-            </IconButton>
-            <Dialog onClose={handleClose} open={open}>
-                <SingUp login={handleLogin}></SingUp>
+
+            <Dialog onClose={handleCloseLogin} open={openLoginDialog}>
+                <SingUp infoMessage={infoMessageLogin} label="Login" login={handleLogin}></SingUp>
+            </Dialog>
+            <Dialog onClose={handleCloseSignIn} open={openSignInDialog}>
+                <SingUp infoMessage={infoMessage} label="Sing up" login={handleCreateAccount}></SingUp>
             </Dialog>
 
 
