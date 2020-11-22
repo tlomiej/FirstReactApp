@@ -10,7 +10,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import SingUp from "./SingUp";
 
 interface Props {
-    login?: boolean;
+    userLoged: (loged: boolean) => void;
 }
 
 
@@ -34,6 +34,7 @@ export default function SingUpButton(props: Props) {
 
     const createAccount = () => {
         console.log("nowe konto")
+        setLoged(true);
         setOpenSignInDialog(true)
     }
 
@@ -43,6 +44,7 @@ export default function SingUpButton(props: Props) {
             .then((user) => {
                 console.log(`Account created`, user);
                 setOpenSignInDialog(false)
+                props.userLoged(true);
             })
             .catch((error) => {
                 console.log("Create account", error)
@@ -70,10 +72,10 @@ export default function SingUpButton(props: Props) {
         auth.signInWithEmailAndPassword(email, password).then((user) => {
             console.log(user, user.user, user.credential);
 
-
             setUser(user);
             setOpen(false);
             setLoged(true);
+            props.userLoged(true);
 
 
         })
@@ -82,10 +84,13 @@ export default function SingUpButton(props: Props) {
             });
     }
 
+
+
     const loginOut = () => {
         console.log("Wylogowano")
         firebase.auth().signOut().then(() => {
             setLoged(false);
+            props.userLoged(false);
 
         }).catch(function (error) {
             console.log("singOut", error)

@@ -7,7 +7,6 @@ import React from "react";
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./../css/Map.css";
 import { SearchBox } from "./SearchBox";
-import SingUpButton from "./SingUpButton";
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
@@ -28,6 +27,7 @@ type State = {
     points: Array<Object>
     email: string;
     password: string;
+    loged: boolean;
 };
 
 
@@ -45,10 +45,13 @@ class MapBox extends React.Component<Props, State> {
             zoom: 0,
             points: [],
             email: '',
-            password: ''
+            password: '',
+            loged: false
         };
 
     }
+
+
 
     componentDidMount(): void {
         this.map = new mapboxgl.Map({
@@ -68,7 +71,7 @@ class MapBox extends React.Component<Props, State> {
             }
         });
         this.map.addControl(new mapboxgl.NavigationControl());
-        this.map.addControl(this.draw, 'top-right');
+
 
         this.map.on('load', () => {
 
@@ -104,6 +107,12 @@ class MapBox extends React.Component<Props, State> {
         this.map.on('draw.update', this.drawLog);
 
 
+
+    }
+
+    updateAndNotify = (): void => {
+        console.log("LOGED 222")
+       
 
     }
 
@@ -214,10 +223,21 @@ class MapBox extends React.Component<Props, State> {
     }
 
     handleCreateAccount = (email: string, password: string) => {
-        console.log("MAPBOXXXX", email, password)
         this.setState({ email })
         this.setState({ password })
 
+
+    }
+
+    handleLoged = (loged: boolean) => {
+        console.log("LOGED", loged)
+        this.setState({loged})
+        if (this.state.loged) {
+            this.map.addControl(this.draw, 'top-right');
+
+        }else{
+            this.map.removeControl(this.draw)
+        }
 
     }
 
@@ -233,9 +253,7 @@ class MapBox extends React.Component<Props, State> {
                     <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
                 </div>
                 <div className='fireBaseStyle'>
-                 {/*    <SingUpButton createAccount={this.handleCreateAccount}></SingUpButton> */}
-                    {/* <FireBaseStart email={this.state.email} password={this.state.password}></FireBaseStart> */}
-                    <FireBaseLogin></FireBaseLogin>
+                    <FireBaseLogin userLoged={this.handleLoged}></FireBaseLogin>
                 </div>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
