@@ -34,7 +34,6 @@ export default function SingUpButton(props: Props) {
 
     const createAccount = () => {
         console.log("nowe konto")
-        setLoged(true);
         setOpenSignInDialog(true)
     }
 
@@ -45,6 +44,7 @@ export default function SingUpButton(props: Props) {
                 console.log(`Account created`, user);
                 setOpenSignInDialog(false)
                 props.userLoged(true);
+                setLoged(true);
             })
             .catch((error) => {
                 console.log("Create account", error)

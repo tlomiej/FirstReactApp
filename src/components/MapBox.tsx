@@ -10,6 +10,7 @@ import { SearchBox } from "./SearchBox";
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
+import { Button, SwipeableDrawer } from "@material-ui/core";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -30,6 +31,7 @@ type State = {
     loged: boolean;
 };
 
+type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 class MapBox extends React.Component<Props, State> {
     private mapContainer: any;
@@ -71,6 +73,7 @@ class MapBox extends React.Component<Props, State> {
             }
         });
         this.map.addControl(new mapboxgl.NavigationControl());
+        this.map.addControl(new mapboxgl.ScaleControl());
 
 
         this.map.on('load', () => {
@@ -112,7 +115,7 @@ class MapBox extends React.Component<Props, State> {
 
     updateAndNotify = (): void => {
         console.log("LOGED 222")
-       
+
 
     }
 
@@ -231,15 +234,31 @@ class MapBox extends React.Component<Props, State> {
 
     handleLoged = (loged: boolean) => {
         console.log("LOGED", loged)
-        this.setState({loged})
+        this.setState({ loged })
         if (this.state.loged) {
             this.map.addControl(this.draw, 'top-right');
 
-        }else{
+        } else {
             this.map.removeControl(this.draw)
         }
 
     }
+
+
+    toggleDrawer = (anchor: Anchor, open: boolean) => (
+        event: React.KeyboardEvent | React.MouseEvent,
+    ) => {
+        if (
+            event &&
+            event.type === 'keydown' &&
+            ((event as React.KeyboardEvent).key === 'Tab' ||
+                (event as React.KeyboardEvent).key === 'Shift')
+        ) {
+            return;
+        }
+
+        this.setState({ ...this.state, [anchor]: open });
+    };
 
     render(): JSX.Element {
         return (
@@ -248,6 +267,20 @@ class MapBox extends React.Component<Props, State> {
                     <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
                 </div> */}
 
+                {/* {(['left', 'right', 'top', 'bottom'] as Anchor[]).map((anchor) => (
+                    <React.Fragment key={anchor}>
+                        <Button onClick={this.toggleDrawer(anchor, true)}>{anchor}</Button>
+                        <SwipeableDrawer
+                            anchor={anchor}
+                            open
+                            onClose={this.toggleDrawer(anchor, false)}
+                            onOpen={this.toggleDrawer(anchor, true)}
+                        >
+                        </SwipeableDrawer>
+                    </React.Fragment>
+                ))} */}
+
+
 
                 <div className='searchStyle'>
                     <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
@@ -255,6 +288,26 @@ class MapBox extends React.Component<Props, State> {
                 <div className='fireBaseStyle'>
                     <FireBaseLogin userLoged={this.handleLoged}></FireBaseLogin>
                 </div>
+
+                <div className='fireBaseStyle'>
+                    {(['left', 'right', 'top', 'bottom'] as Anchor[]).map((anchor) => (
+                        <div key={anchor}>
+                            <Button onClick={this.toggleDrawer(anchor, true)}>{anchor}</Button>
+                            {/* <SwipeableDrawer
+                                anchor={anchor}
+                                open
+                                onClose={this.toggleDrawer(anchor, false)}
+                                onOpen={this.toggleDrawer(anchor, true)}
+                            >
+                            </SwipeableDrawer> */}
+        </div>
+                    ))}
+                </div>
+
+
+
+
+
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
             </div>
