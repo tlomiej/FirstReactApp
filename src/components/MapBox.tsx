@@ -29,6 +29,7 @@ type State = {
     email: string;
     password: string;
     loged: boolean;
+    drawer: boolean
 };
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
@@ -48,7 +49,8 @@ class MapBox extends React.Component<Props, State> {
             points: [],
             email: '',
             password: '',
-            loged: false
+            loged: false,
+            drawer: false
         };
 
     }
@@ -257,7 +259,7 @@ class MapBox extends React.Component<Props, State> {
             return;
         }
 
-        this.setState({ ...this.state, [anchor]: open });
+        this.setState({ drawer: open });
     };
 
     render(): JSX.Element {
@@ -290,18 +292,19 @@ class MapBox extends React.Component<Props, State> {
                 </div>
 
                 <div className='fireBaseStyle'>
-                    {(['left', 'right', 'top', 'bottom'] as Anchor[]).map((anchor) => (
-                        <div key={anchor}>
-                            <Button onClick={this.toggleDrawer(anchor, true)}>{anchor}</Button>
-                            {/* <SwipeableDrawer
-                                anchor={anchor}
-                                open
-                                onClose={this.toggleDrawer(anchor, false)}
-                                onOpen={this.toggleDrawer(anchor, true)}
+                <Button onClick={this.toggleDrawer("left", true)}>"LEFT"</Button>
+                            <SwipeableDrawer
+                                open={this.state.drawer}
+                                onClose={this.toggleDrawer("left", false)}
+                                onOpen={this.toggleDrawer("left", true)}
                             >
-                            </SwipeableDrawer> */}
-        </div>
-                    ))}
+                                <h1>formularz</h1>
+                                <h1>formularz</h1>
+                                <h1>formularzformularzformularzformularzformularzformularzformularz </h1>
+                                <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
+
+                            </SwipeableDrawer> 
+ 
                 </div>
 
 
