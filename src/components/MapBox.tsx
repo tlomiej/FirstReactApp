@@ -6,11 +6,13 @@ import mapboxgl from "mapbox-gl";
 import React from "react";
 import { MAPBOX_ACCESS_TOKEN } from "../models/MapBoxToken";
 import "./../css/Map.css";
+import "./../css/Button.css";
 import { SearchBox } from "./SearchBox";
+import SearchIcon from '@material-ui/icons/Search';
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
-import { Button, SwipeableDrawer } from "@material-ui/core";
+import { Button, IconButton, SwipeableDrawer } from "@material-ui/core";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -62,7 +64,7 @@ class MapBox extends React.Component<Props, State> {
             container: this.mapContainer,
             center: [this.props.longitude, this.props.latitude],
             style: 'mapbox://styles/mapbox/streets-v11',
-            zoom: 21,
+            zoom: 5,
             pitch: 45
         });
 
@@ -265,46 +267,29 @@ class MapBox extends React.Component<Props, State> {
     render(): JSX.Element {
         return (
             <div>
-                {/*   <div className='sidebarStyle'>
-                    <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
-                </div> */}
-
-                {/* {(['left', 'right', 'top', 'bottom'] as Anchor[]).map((anchor) => (
-                    <React.Fragment key={anchor}>
-                        <Button onClick={this.toggleDrawer(anchor, true)}>{anchor}</Button>
-                        <SwipeableDrawer
-                            anchor={anchor}
-                            open
-                            onClose={this.toggleDrawer(anchor, false)}
-                            onOpen={this.toggleDrawer(anchor, true)}
-                        >
-                        </SwipeableDrawer>
-                    </React.Fragment>
-                ))} */}
-
-
-
                 <div className='searchStyle'>
-                    <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
-                </div>
-                <div className='fireBaseStyle'>
                     <FireBaseLogin userLoged={this.handleLoged}></FireBaseLogin>
+                    <div className='iconButtonStyle'>
+                        <IconButton title="Szukaj" type="submit" onClick={this.toggleDrawer("left", true)} aria-label="search">
+                            <SearchIcon />
+                        </IconButton>
+
+                    </div>
+                </div>
+                <div className='fireBaseStyle'>
+
                 </div>
 
                 <div className='fireBaseStyle'>
-                <Button onClick={this.toggleDrawer("left", true)}>"LEFT"</Button>
-                            <SwipeableDrawer
-                                open={this.state.drawer}
-                                onClose={this.toggleDrawer("left", false)}
-                                onOpen={this.toggleDrawer("left", true)}
-                            >
-                                <h1>formularz</h1>
-                                <h1>formularz</h1>
-                                <h1>formularzformularzformularzformularzformularzformularzformularz </h1>
-                                <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
+                    <SwipeableDrawer
+                        open={this.state.drawer}
+                        onClose={this.toggleDrawer("left", false)}
+                        onOpen={this.toggleDrawer("left", true)}
+                    >
+                        <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
+                        <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
+                    </SwipeableDrawer>
 
-                            </SwipeableDrawer> 
- 
                 </div>
 
 

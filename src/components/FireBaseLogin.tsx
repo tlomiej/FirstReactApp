@@ -6,6 +6,7 @@ import { fdb } from "../models/FirebaseConfig";
 import PersonIcon from '@material-ui/icons/Person';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import "./../css/Button.css";
 
 import SingUp from "./SingUp";
 
@@ -100,17 +101,19 @@ export default function SingUpButton(props: Props) {
     return (
         <div>
 
-            { loged ? (<IconButton title="Log out " className="logout" type="submit" onClick={loginOut} aria-label="search">
+            { loged ? (<div className='iconButtonStyle'><IconButton className="logout" title="Log out" type="submit" onClick={loginOut} aria-label="search">
                 <AccountCircleIcon />
-            </IconButton>) : (
-                    <IconButton title="Login" className="login" type="submit" onClick={login} aria-label="search">
+            </IconButton></div>) : (
+                    <div className='iconButtonStyle'> <IconButton className="login" title="Login" type="submit" onClick={login} aria-label="search">
                         <PersonIcon />
-                    </IconButton>
+                    </IconButton></div>
                 )}
             { loged ? ("") : (
-                <IconButton title="Create account" className="create" type="submit" onClick={createAccount} aria-label="search">
-                    <PersonAddIcon />
-                </IconButton>
+                <div className='iconButtonStyle'>
+                    <IconButton className="create" title="Create account" type="submit" onClick={createAccount} aria-label="search">
+                        <PersonAddIcon />
+                    </IconButton>
+                </div>
             )}
 
 
