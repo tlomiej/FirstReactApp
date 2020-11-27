@@ -31,7 +31,9 @@ type State = {
     email: string;
     password: string;
     loged: boolean;
-    drawer: boolean
+    drawer: boolean;
+    searchBackup: Array<Object>;
+
 };
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
@@ -52,7 +54,8 @@ class MapBox extends React.Component<Props, State> {
             email: '',
             password: '',
             loged: false,
-            drawer: false
+            drawer: false,
+            searchBackup: []
         };
 
     }
@@ -173,6 +176,7 @@ class MapBox extends React.Component<Props, State> {
     }
 
     private getDataFromSearch = async (event: any) => {
+        this.setState({ searchBackup: event })
         console.log("getDataFromSearch =>", event)
         let objectData: any = event.map((obj: any) => {
             return {
@@ -287,7 +291,12 @@ class MapBox extends React.Component<Props, State> {
                         onOpen={this.toggleDrawer("left", true)}
                     >
                         <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
-                        <SearchBox onGetMapQuestData={this.getDataFromMapQuest} onGetData={this.getDataFromSearch} onClickItem={this.onClikItem}></SearchBox>
+                        <SearchBox
+                            result={this.state.searchBackup}
+                            onGetMapQuestData={this.getDataFromMapQuest}
+                            onGetData={this.getDataFromSearch}
+                            onClickItem={this.onClikItem} 
+                            />
                     </SwipeableDrawer>
 
                 </div>

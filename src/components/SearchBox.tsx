@@ -39,7 +39,7 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
         super(props);
         this.state = {
             resultString: 'Pusto',
-            result: [],
+            result: props.result,
             mapQuestResult: { results: [{ locations: [] }] },
             onGetData: () => { },
             onGetMapQuestData: () => { },
@@ -60,6 +60,15 @@ export class SearchBox<SearchBox> extends React.Component<State, Props> {
 
     onClickItemChanged(event: React.ChangeEventHandler){
         console.log("test", event);
+    }
+
+
+    componentDidMount(){
+        console.log("Odlaczony", this.state)
+    }
+
+    componentWillUnmount(){
+        console.log("Odlaczony??????", this.state)
     }
 
 
