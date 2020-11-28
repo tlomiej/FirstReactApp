@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
-import { Button, IconButton, SwipeableDrawer } from "@material-ui/core";
+import { Button, Drawer, IconButton, SwipeableDrawer } from "@material-ui/core";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -35,6 +35,7 @@ type State = {
     searchBackup: Array<Object>;
 
 };
+
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
@@ -268,6 +269,8 @@ class MapBox extends React.Component<Props, State> {
         this.setState({ drawer: open });
     };
 
+
+
     render(): JSX.Element {
         return (
             <div>
@@ -284,22 +287,22 @@ class MapBox extends React.Component<Props, State> {
 
                 </div>
 
-                <div className='fireBaseStyle'>
-                    <SwipeableDrawer
-                        open={this.state.drawer}
-                        onClose={this.toggleDrawer("left", false)}
-                        onOpen={this.toggleDrawer("left", true)}
-                    >
-                        <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
-                        <SearchBox
-                            result={this.state.searchBackup}
-                            onGetMapQuestData={this.getDataFromMapQuest}
-                            onGetData={this.getDataFromSearch}
-                            onClickItem={this.onClikItem} 
-                            />
-                    </SwipeableDrawer>
 
-                </div>
+                <Drawer
+                    open={this.state.drawer}
+                    onClose={this.toggleDrawer("left", false)}
+                 
+                >
+                    <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
+                    <SearchBox
+                        result={this.state.searchBackup}
+                        onGetMapQuestData={this.getDataFromMapQuest}
+                        onGetData={this.getDataFromSearch}
+                        onClickItem={this.onClikItem}
+                    />
+                </Drawer>
+
+
 
 
 
