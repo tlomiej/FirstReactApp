@@ -9,10 +9,12 @@ import "./../css/Map.css";
 import "./../css/Button.css";
 import { SearchBox } from "./SearchBox";
 import SearchIcon from '@material-ui/icons/Search';
+import EditIcon from '@material-ui/icons/Edit';
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
 import { Button, Drawer, IconButton, SwipeableDrawer } from "@material-ui/core";
+import MenuBar from "./MenuBar";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -32,6 +34,7 @@ type State = {
     password: string;
     loged: boolean;
     drawer: boolean;
+    drawerEdit: boolean;
     searchBackup: Array<Object>;
 
 };
@@ -56,6 +59,7 @@ class MapBox extends React.Component<Props, State> {
             password: '',
             loged: false,
             drawer: false,
+            drawerEdit: false,
             searchBackup: []
         };
 
@@ -269,16 +273,38 @@ class MapBox extends React.Component<Props, State> {
         this.setState({ drawer: open });
     };
 
+    toggleDrawerEdit = (anchor: Anchor, open: boolean) => (
+        event: React.KeyboardEvent | React.MouseEvent,
+    ) => {
+        if (
+            event &&
+            event.type === 'keydown' &&
+            ((event as React.KeyboardEvent).key === 'Tab' ||
+                (event as React.KeyboardEvent).key === 'Shift')
+        ) {
+            return;
+        }
+
+        this.setState({ drawerEdit: open });
+    };
+
 
 
     render(): JSX.Element {
         return (
             <div>
                 <div className='searchStyle'>
+                    <MenuBar></MenuBar>
                     <FireBaseLogin userLoged={this.handleLoged}></FireBaseLogin>
                     <div className='iconButtonStyle'>
                         <IconButton title="Szukaj" type="submit" onClick={this.toggleDrawer("left", true)} aria-label="search">
                             <SearchIcon />
+                        </IconButton>
+
+                    </div>
+                    <div className='iconButtonStyle'>
+                        <IconButton title="Dodaj" type="submit" onClick={this.toggleDrawerEdit("left", true)} aria-label="search">
+                            <EditIcon />
                         </IconButton>
 
                     </div>
@@ -291,7 +317,6 @@ class MapBox extends React.Component<Props, State> {
                 <Drawer
                     open={this.state.drawer}
                     onClose={this.toggleDrawer("left", false)}
-                 
                 >
                     <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
                     <SearchBox
@@ -301,13 +326,13 @@ class MapBox extends React.Component<Props, State> {
                         onClickItem={this.onClikItem}
                     />
                 </Drawer>
+                <Drawer
+                    open={this.state.drawerEdit}
+                    onClose={this.toggleDrawer("left", false)}
+                >
+                    <Button onClick={this.toggleDrawerEdit("left", false)}>"X"</Button>
 
-
-
-
-
-
-
+                </Drawer>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
             </div>
