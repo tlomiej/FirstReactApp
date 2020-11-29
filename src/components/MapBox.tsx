@@ -294,7 +294,6 @@ class MapBox extends React.Component<Props, State> {
         return (
             <div>
                 <div className='searchStyle'>
-                    <MenuBar></MenuBar>
                     <FireBaseLogin userLoged={this.handleLoged}></FireBaseLogin>
                     <div className='iconButtonStyle'>
                         <IconButton title="Szukaj" type="submit" onClick={this.toggleDrawer("left", true)} aria-label="search">
@@ -326,13 +325,14 @@ class MapBox extends React.Component<Props, State> {
                         onClickItem={this.onClikItem}
                     />
                 </Drawer>
-                <Drawer
+                <MenuBar drawEdit={this.state.drawerEdit}></MenuBar>
+         {/*        <Drawer
                     open={this.state.drawerEdit}
                     onClose={this.toggleDrawer("left", false)}
                 >
                     <Button onClick={this.toggleDrawerEdit("left", false)}>"X"</Button>
 
-                </Drawer>
+                </Drawer> */}
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
             </div>
