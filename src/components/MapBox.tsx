@@ -273,6 +273,8 @@ class MapBox extends React.Component<Props, State> {
         this.setState({ drawer: open });
     };
 
+    drawerWidth = 240;
+
     toggleDrawerEdit = (anchor: Anchor, open: boolean) => (
         event: React.KeyboardEvent | React.MouseEvent,
     ) => {
@@ -288,6 +290,71 @@ class MapBox extends React.Component<Props, State> {
         this.setState({ drawerEdit: open });
     };
 
+    styles = (theme:any) => ({
+        drawer: {
+          position: "absolute",
+          overflowX: "hidden",
+          zIndex: theme.zIndex.drawer + 2,
+          [theme.breakpoints.up("sm")]: {
+            position: "relative",
+            width: this.drawerWidth,
+            flexShrink: 0,
+            zIndex: theme.zIndex.drawer
+          },
+          whiteSpace: "nowrap"
+        },
+        drawerOpen: {
+          width: this.drawerWidth,
+          background: "red",
+          transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen
+          })
+        },
+        drawerClose: {
+          transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen
+          }),
+          overflowX: "hidden",
+          width: 0,
+          [theme.breakpoints.up("sm")]: {
+            width: theme.spacing.unit * 9 + 1
+          }
+        }
+      });
+
+      StyledDrawer = styled(Drawer)`
+  ${({ theme: any, open:any }) => {
+    const classes = styles(theme);
+    return {
+      ...classes.drawer,
+      ...(open ? classes.drawerOpen : classes.drawerClose)
+    };
+  }}
+
+  .MuiDrawer-paper {
+    ${({ theme, open }) => {
+      const classes = styles(theme);
+      return open ? classes.drawerOpen : classes.drawerClose;
+    }}
+
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        display: none;
+      }
+    }
+    &::-webkit-scrollbar-thumb {
+      display: none;
+    }
+    &::-webkit-scrollbar-track {
+      display: none;
+    }
+  }
+`;
 
 
     render(): JSX.Element {
@@ -325,14 +392,14 @@ class MapBox extends React.Component<Props, State> {
                         onClickItem={this.onClikItem}
                     />
                 </Drawer>
-                <MenuBar drawEdit={this.state.drawerEdit}></MenuBar>
-         {/*        <Drawer
+               {/*  <MenuBar drawEdit={this.state.drawerEdit}></MenuBar> */}
+                <Drawer
                     open={this.state.drawerEdit}
                     onClose={this.toggleDrawer("left", false)}
                 >
                     <Button onClick={this.toggleDrawerEdit("left", false)}>"X"</Button>
 
-                </Drawer> */}
+                </Drawer>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
             </div>

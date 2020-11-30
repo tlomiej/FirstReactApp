@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FireBaseLogin from "./FireBaseLogin";
 import { Button, Drawer, IconButton, SwipeableDrawer } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
@@ -13,6 +13,7 @@ interface props {
 
 export default function MenuBar(Props: props) {
     const [drawerEdit, setDrawerEdit] = useState(false);
+
 
     const toggleDrawerEditNew = (anchor: Anchor, open: boolean) => (
         event: React.KeyboardEvent | React.MouseEvent,
