@@ -13,8 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
-import { Button, Drawer, IconButton, SwipeableDrawer } from "@material-ui/core";
-import MenuBar from "./MenuBar";
+import { Button, Drawer, IconButton } from "@material-ui/core";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -324,39 +323,7 @@ class MapBox extends React.Component<Props, State> {
         }
       });
 
-      StyledDrawer = styled(Drawer)`
-  ${({ theme: any, open:any }) => {
-    const classes = styles(theme);
-    return {
-      ...classes.drawer,
-      ...(open ? classes.drawerOpen : classes.drawerClose)
-    };
-  }}
-
-  .MuiDrawer-paper {
-    ${({ theme, open }) => {
-      const classes = styles(theme);
-      return open ? classes.drawerOpen : classes.drawerClose;
-    }}
-
-    &::-webkit-scrollbar {
-      width: 2px;
-    }
-    &:hover {
-      &::-webkit-scrollbar-thumb {
-        display: none;
-      }
-    }
-    &::-webkit-scrollbar-thumb {
-      display: none;
-    }
-    &::-webkit-scrollbar-track {
-      display: none;
-    }
-  }
-`;
-
-
+ 
     render(): JSX.Element {
         return (
             <div>
