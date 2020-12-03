@@ -10,6 +10,7 @@ import "./../css/Button.css";
 import { SearchBox } from "./SearchBox";
 import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
+import FormContact from "./FormContact";
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
@@ -365,6 +366,7 @@ class MapBox extends React.Component<Props, State> {
                     onClose={this.toggleDrawer("left", false)}
                 >
                     <Button onClick={this.toggleDrawerEdit("left", false)}>"X"</Button>
+                    <FormContact></FormContact>
 
                 </Drawer>
 
