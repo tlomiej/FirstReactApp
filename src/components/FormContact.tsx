@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 
-import './../css/form.css'
+//import './../css/form.css'
 
 type Inputs = {
   example: string,
