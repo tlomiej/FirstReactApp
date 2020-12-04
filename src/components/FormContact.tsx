@@ -1,25 +1,44 @@
+import { TextField } from "@material-ui/core";
 import React from "react";
-import { useForm } from "react-hook-form";
+import ReactDOM from "react-dom";
+import { Controller, useForm } from "react-hook-form";
 
+enum GenderEnum {
+  female = "female",
+  male = "male"
+}
 
-//import './../css/form.css'
+interface IFormInput {
+  firstName: String;
+  gender: GenderEnum;
+  temat: String;
 
-type Inputs = {
-  example: string,
-  exampleRequired: string,
-};
+}
 
-export default function FormContact() {
-  const { register, handleSubmit, watch, errors } = useForm<Inputs>();
-  const onSubmit = (data: any) => console.log(data);
+export default function App() {
+  const { register, handleSubmit,control } = useForm<IFormInput>();
 
-  console.log(watch("example")) // watch input value by passing the name of it
+  const onSubmit = (data: IFormInput) => {
+    console.log(data)
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input name="example" defaultValue="test" ref={register} />
-      <input name="exampleRequired" ref={register({ required: true })} />
-      {errors.exampleRequired && <span>This field is required</span>}
+      <Controller
+  as={<TextField />}
+  name="firstName"
+  label="First Name"
+  control={control}
+  defaultValue=""
+/>
+       <TextField  name="temat" ref={register} required id="standard-required" label="Required" defaultValue="XXX" />
+      <label>First Name</label>
+      <input name="firstName" ref={register} />
+      <label>Gender Selection</label>
+      <select name="gender" ref={register}>
+        <option value="female">female</option>
+        <option value="male">male</option>
+      </select>
       <input type="submit" />
     </form>
   );
