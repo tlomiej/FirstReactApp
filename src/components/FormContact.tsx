@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { Button, createStyles, Grid, makeStyles, TextField, Theme } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Controller, useForm } from "react-hook-form";
@@ -9,14 +9,28 @@ enum GenderEnum {
 }
 
 interface IFormInput {
-  firstName: String;
-  gender: GenderEnum;
-  temat: String;
+  title: String;
+  descryption: string;
 
 }
 
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    paperGrid: {
+      padding: theme.spacing(4),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  }),
+);
+
 export default function App() {
-  const { register, handleSubmit,control } = useForm<IFormInput>();
+  const { register, handleSubmit, control } = useForm<IFormInput>();
+  const classes = useStyles();
 
   const onSubmit = (data: IFormInput) => {
     console.log(data)
@@ -24,22 +38,28 @@ export default function App() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-  as={<TextField />}
-  name="firstName"
-  label="First Name"
-  control={control}
-  defaultValue=""
-/>
-       <TextField  name="temat" ref={register} required id="standard-required" label="Required" defaultValue="XXX" />
-      <label>First Name</label>
-      <input name="firstName" ref={register} />
-      <label>Gender Selection</label>
-      <select name="gender" ref={register}>
-        <option value="female">female</option>
-        <option value="male">male</option>
-      </select>
-      <input type="submit" />
+      <Grid className={classes.paperGrid} container spacing={3} direction="column">
+
+        <Controller
+          as={<TextField />}
+          name="title"
+          label="First Name"
+          control={control}
+          defaultValue=""
+        />
+        <Controller
+          as={<TextField />}
+          name="descryption"
+          label="Descryption"
+          control={control}
+          defaultValue=""
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Primary
+        </Button>
+
+      </Grid>
+
     </form>
   );
 }
