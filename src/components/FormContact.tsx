@@ -46,6 +46,7 @@ export default function App() {
           label="First Name"
           control={control}
           defaultValue=""
+          required
         />
         <Controller
           as={<TextField />}
@@ -53,9 +54,10 @@ export default function App() {
           label="Descryption"
           control={control}
           defaultValue=""
+          required
         />
         <Button type="submit" variant="contained" color="primary">
-          Primary
+          Send
         </Button>
 
       </Grid>
