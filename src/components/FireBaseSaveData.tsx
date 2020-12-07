@@ -1,6 +1,8 @@
 import { Dialog, IconButton } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/firestore';
 import React from 'react';
 import { fdb } from "../models/FirebaseConfig";
 
@@ -15,7 +17,7 @@ export default function FireBaseSaveData(props: Props) {
 
 
     const saveData = () => {
-        firebase.firestore().collection('zgloszenia').add({ ...props.data })
+        fdb.firestore().collection('zgloszenia').add({ ...props.data });
 
     }
 

@@ -2,6 +2,11 @@ import { Button, createStyles, Grid, makeStyles, TextField, Theme } from "@mater
 import React from "react";
 import ReactDOM from "react-dom";
 import { Controller, useForm } from "react-hook-form";
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/firestore';
+import { fdb } from "../models/FirebaseConfig";
+import 'firebase/auth';
 
 enum GenderEnum {
   female = "female",
@@ -34,6 +39,20 @@ export default function App() {
 
   const onSubmit = (data: IFormInput) => {
     console.log(data)
+
+    fdb.auth().onAuthStateChanged((user) => {
+      if (user) {
+        fdb.firestore().collection('zgloszenia').add({ data }).then((docRef) => {
+          console.log("Document written with ID: ", docRef.id);
+        })
+          .catch((error) => {
+            console.error("Error adding document: ", error);
+          });
+      } else {
+        // No user is signed in.
+      }
+    });
+
   };
 
   return (
