@@ -1,7 +1,7 @@
 import { Dialog, IconButton } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { fdb } from "../models/FirebaseConfig";
 import PersonIcon from '@material-ui/icons/Person';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -84,6 +84,25 @@ export default function SingUpButton(props: Props) {
                 setInfoMessageLogin(error.message)
             });
     }
+
+
+        useEffect(() => {
+            return () => {
+                
+                const loginOut = () => {
+                    console.log("Wylogowano")
+                    firebase.auth().signOut().then(() => {
+                        setLoged(false);
+                        props.userLoged(false);
+            
+                    }).catch(function (error) {
+                        console.log("singOut", error)
+                    });
+                }
+                // Anything in here is fired on component unmount.
+            }
+        }, [])
+    
 
 
 

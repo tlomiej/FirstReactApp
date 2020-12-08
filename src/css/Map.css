@@ -80,3 +80,18 @@
   background-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
 }
+
+.editWdget{
+  background-color: honeydew;
+  background: honeydew;
+  z-index: 1 !important;
+  display: inline-block;
+  position: sticky;
+  margin: 6px;
+  padding: 12px;
+  float: right;
+  transition: transform 1s;
+    z-index: 1;
+    width: 300px;
+    height: 100%;
+}

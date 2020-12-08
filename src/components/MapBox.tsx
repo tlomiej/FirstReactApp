@@ -14,7 +14,7 @@ import FormContact from "./FormContact";
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
-import { Button, Drawer, IconButton } from "@material-ui/core";
+import { Box, Button, Drawer, IconButton } from "@material-ui/core";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -84,8 +84,8 @@ class MapBox extends React.Component<Props, State> {
                 trash: true
             }
         });
-        this.map.addControl(new mapboxgl.NavigationControl());
-        this.map.addControl(new mapboxgl.ScaleControl());
+        this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+        this.map.addControl(new mapboxgl.ScaleControl(),);
 
 
         this.map.on('load', () => {
@@ -290,41 +290,41 @@ class MapBox extends React.Component<Props, State> {
         this.setState({ drawerEdit: open });
     };
 
-    styles = (theme:any) => ({
+    styles = (theme: any) => ({
         drawer: {
-          position: "absolute",
-          overflowX: "hidden",
-          zIndex: theme.zIndex.drawer + 2,
-          [theme.breakpoints.up("sm")]: {
-            position: "relative",
-            width: this.drawerWidth,
-            flexShrink: 0,
-            zIndex: theme.zIndex.drawer
-          },
-          whiteSpace: "nowrap"
+            position: "absolute",
+            overflowX: "hidden",
+            zIndex: theme.zIndex.drawer + 2,
+            [theme.breakpoints.up("sm")]: {
+                position: "relative",
+                width: this.drawerWidth,
+                flexShrink: 0,
+                zIndex: theme.zIndex.drawer
+            },
+            whiteSpace: "nowrap"
         },
         drawerOpen: {
-          width: this.drawerWidth,
-          background: "red",
-          transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen
-          })
+            width: this.drawerWidth,
+            background: "red",
+            transition: theme.transitions.create("width", {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen
+            })
         },
         drawerClose: {
-          transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-          }),
-          overflowX: "hidden",
-          width: 0,
-          [theme.breakpoints.up("sm")]: {
-            width: theme.spacing.unit * 9 + 1
-          }
+            transition: theme.transitions.create("width", {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen
+            }),
+            overflowX: "hidden",
+            width: 0,
+            [theme.breakpoints.up("sm")]: {
+                width: theme.spacing.unit * 9 + 1
+            }
         }
-      });
+    });
 
- 
+
     render(): JSX.Element {
         return (
             <div>
@@ -343,8 +343,12 @@ class MapBox extends React.Component<Props, State> {
 
                     </div>
                 </div>
-                <div className='fireBaseStyle'>
+                <div className='editWdget'>
+                    <Box component="span" m={1}>
+                        <Button />
+                        <FormContact></FormContact>
 
+                    </Box>
                 </div>
 
 
@@ -360,7 +364,7 @@ class MapBox extends React.Component<Props, State> {
                         onClickItem={this.onClikItem}
                     />
                 </Drawer>
-               {/*  <MenuBar drawEdit={this.state.drawerEdit}></MenuBar> */}
+                {/*  <MenuBar drawEdit={this.state.drawerEdit}></MenuBar> */}
                 <Drawer
                     open={this.state.drawerEdit}
                     onClose={this.toggleDrawer("left", false)}
