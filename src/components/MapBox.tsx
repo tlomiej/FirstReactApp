@@ -275,30 +275,24 @@ class MapBox extends React.Component<Props, State> {
 
     drawerWidth = 240;
 
-    handleClickOpen = ()=>{
+    handleClickOpen = () => {
         console.log("klik")
         let elem = document.getElementById('right');
-        if(elem){
+        if (elem) {
             let classes = elem.className.split(' ');
             let collapsed = classes.indexOf('collapsed') !== -1;
-            let padding: any  = {};
-
+            let padding: any = {};
             if (collapsed) {
-                // Remove the 'collapsed' class from the class list of the element, this sets it back to the expanded state.
                 classes.splice(classes.indexOf('collapsed'), 1);
-    
-                padding['right'] = 300; // In px, matches the width of the sidebars set in .sidebar CSS class
+                padding['right'] = 300;
             } else {
                 padding["right"] = 0;
-                // Add the 'collapsed' class to the class list of the element
                 classes.push('collapsed');
-    
-                // Update the class list on the element
-                elem.className = classes.join(' ');
             }
+            elem.className = classes.join(' ');
         }
 
-       
+
 
     }
 
@@ -370,17 +364,10 @@ class MapBox extends React.Component<Props, State> {
 
                     </div>
                 </div>
-                <div className='editWdget'>
-                    <Box component="span" m={1}>
-                        <Button />
-                        <FormContact></FormContact>
-
-                    </Box>
-                </div>
 
                 <div id="right" className="sidebar flex-center right collapsed">
                     <div className="sidebar-content rounded-rect flex-center">
-                        Right Sidebar
+                        <FormContact></FormContact>
             <div className="sidebar-toggle rounded-rect right" onClick={this.handleClickOpen}>
                             &larr;
             </div>
