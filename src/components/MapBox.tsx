@@ -290,6 +290,11 @@ class MapBox extends React.Component<Props, State> {
                 classes.push('collapsed');
             }
             elem.className = classes.join(' ');
+            // this.map.easeTo({
+            //     padding: padding,
+            //     duration: 1000
+            // });
+
         }
 
 
@@ -357,20 +362,20 @@ class MapBox extends React.Component<Props, State> {
                         </IconButton>
 
                     </div>
-                    <div className='iconButtonStyle'>
-                        <IconButton title="Dodaj" type="submit" onClick={this.toggleDrawerEdit("left", true)} aria-label="search">
+                    {this.state.loged ? (<div className='iconButtonStyle'>
+                        <IconButton title="Dodaj" type="submit" onClick={this.handleClickOpen} aria-label="search">
                             <EditIcon />
                         </IconButton>
-
-                    </div>
+                    </div>): (<div></div>) }                  
                 </div>
 
+                
                 <div id="right" className="sidebar flex-center right collapsed">
                     <div className="sidebar-content rounded-rect flex-center">
                         <FormContact></FormContact>
-            <div className="sidebar-toggle rounded-rect right" onClick={this.handleClickOpen}>
+                        <div className="sidebar-toggle rounded-rect right" onClick={this.handleClickOpen}>
                             &larr;
-            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -388,14 +393,6 @@ class MapBox extends React.Component<Props, State> {
                     />
                 </Drawer>
                 {/*  <MenuBar drawEdit={this.state.drawerEdit}></MenuBar> */}
-                <Drawer
-                    open={this.state.drawerEdit}
-                    onClose={this.toggleDrawer("left", false)}
-                >
-                    <Button onClick={this.toggleDrawerEdit("left", false)}>"X"</Button>
-                    <FormContact></FormContact>
-
-                </Drawer>
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
             </div>
