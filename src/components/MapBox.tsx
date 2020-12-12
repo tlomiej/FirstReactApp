@@ -249,7 +249,7 @@ class MapBox extends React.Component<Props, State> {
         console.log("LOGED", loged)
         this.setState({ loged })
         if (this.state.loged) {
-            this.map.addControl(this.draw, 'top-right');
+            this.map.addControl(this.draw);
 
         } else {
             this.map.removeControl(this.draw)
@@ -366,13 +366,13 @@ class MapBox extends React.Component<Props, State> {
                         <IconButton title="Dodaj" type="submit" onClick={this.handleClickOpen} aria-label="search">
                             <EditIcon />
                         </IconButton>
-                    </div>): (<div></div>) }                  
+                    </div>) : (<div></div>)}
                 </div>
 
-                
+
                 <div id="right" className="sidebar flex-center right collapsed">
                     <div className="sidebar-content rounded-rect flex-center">
-                        <FormContact></FormContact>
+                                                <FormContact draw={this.draw}></FormContact>
                         <div className="sidebar-toggle rounded-rect right" onClick={this.handleClickOpen}>
                             &larr;
                         </div>

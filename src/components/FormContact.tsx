@@ -1,4 +1,4 @@
-import { Button, createStyles, Grid, makeStyles, TextField, Theme } from "@material-ui/core";
+import { Button, createStyles, Grid, makeStyles, TextField, Theme, IconButton } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Controller, useForm } from "react-hook-form";
@@ -7,6 +7,7 @@ import 'firebase/database';
 import 'firebase/firestore';
 import { fdb } from "../models/FirebaseConfig";
 import 'firebase/auth';
+import EditIcon from '@material-ui/icons/Edit';
 
 enum GenderEnum {
   female = "female",
@@ -30,13 +31,34 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
+    toolBox: {
+      margin: '1px'
+
+    }
   }),
 );
 
-export default function App() {
+
+interface Props {
+  draw: any;
+}
+
+export default function App(props: Props) {
   const { register, handleSubmit, control } = useForm<IFormInput>();
   const classes = useStyles();
 
+
+  const drawPolygon = () =>{
+    props.draw.changeMode('draw_polygon');
+  }
+  
+  const drawPolyline = () =>{
+    props.draw.changeMode('draw_line_string');
+  }
+  const drawPoint = () =>{
+    props.draw.changeMode('draw_point');
+  }
+  
   const onSubmit = (data: IFormInput) => {
     console.log(data)
 
@@ -56,31 +78,47 @@ export default function App() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid className={classes.paperGrid} container spacing={3} direction="column">
+    <div>
+      <div className={classes.toolBox}>
+        <IconButton title="Obszar" aria-label="search" onClick={drawPolygon}>
+          <EditIcon />
+        </IconButton>
+        <IconButton title="Linia" aria-label="search" onClick={drawPolyline}>
+          <EditIcon />
+        </IconButton>
+        <IconButton title="Punkt" aria-label="search" onClick={drawPoint}>
+          <EditIcon />
+        </IconButton>
 
-        <Controller
-          as={<TextField />}
-          name="title"
-          label="First Name"
-          control={control}
-          defaultValue=""
-          required
-        />
-        <Controller
-          as={<TextField />}
-          name="descryption"
-          label="Descryption"
-          control={control}
-          defaultValue=""
-          required
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Send
-        </Button>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
 
-      </Grid>
+        <Grid className={classes.paperGrid} container spacing={3} direction="column">
+          <Controller
+            as={<TextField />}
+            name="title"
+            label="First Name"
+            control={control}
+            defaultValue=""
+            required
+          />
+          <Controller
+            as={<TextField />}
+            name="descryption"
+            label="Descryption"
+            control={control}
+            defaultValue=""
+            required
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Send
+          </Button>
 
-    </form>
+        </Grid>
+
+      </form>
+
+
+    </div>
   );
 }
