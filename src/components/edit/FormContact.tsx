@@ -19,6 +19,7 @@ enum GenderEnum {
 interface IFormInput {
   title: String;
   descryption: string;
+  geojson: any;
 
 }
 
@@ -50,23 +51,13 @@ export default function App(props: Props) {
   const classes = useStyles();
 
 
-  const drawPolygon = () =>{
-    props.draw.changeMode('draw_polygon');
-  }
-  
-  const drawPolyline = () =>{
-    props.draw.changeMode('draw_line_string');
-  }
-  const drawPoint = () =>{
-    props.draw.changeMode('draw_point');
-  }
-  
   const onSubmit = (data: IFormInput) => {
-    console.log(data)
+    const allData = { ...data, ...{ geojson: JSON.stringify(props.draw.getAll()) } }
+    console.log(allData)
 
     fdb.auth().onAuthStateChanged((user) => {
       if (user) {
-        fdb.firestore().collection('zgloszenia').add({ data }).then((docRef) => {
+        fdb.firestore().collection('zgloszenia').add({ allData }).then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
         })
           .catch((error) => {
