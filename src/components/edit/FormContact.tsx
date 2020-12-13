@@ -5,9 +5,11 @@ import { Controller, useForm } from "react-hook-form";
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
-import { fdb } from "../models/FirebaseConfig";
+import { fdb } from "../../models/FirebaseConfig";
 import 'firebase/auth';
 import EditIcon from '@material-ui/icons/Edit';
+import TimelineIcon from '@material-ui/icons/Timeline';
+import EditToolbar from "./EditToolbar";
 
 enum GenderEnum {
   female = "female",
@@ -79,20 +81,8 @@ export default function App(props: Props) {
 
   return (
     <div>
-      <div className={classes.toolBox}>
-        <IconButton title="Obszar" aria-label="search" onClick={drawPolygon}>
-          <EditIcon />
-        </IconButton>
-        <IconButton title="Linia" aria-label="search" onClick={drawPolyline}>
-          <EditIcon />
-        </IconButton>
-        <IconButton title="Punkt" aria-label="search" onClick={drawPoint}>
-          <EditIcon />
-        </IconButton>
-
-      </div>
+      <EditToolbar draw={props.draw}></EditToolbar>
       <form onSubmit={handleSubmit(onSubmit)}>
-
         <Grid className={classes.paperGrid} container spacing={3} direction="column">
           <Controller
             as={<TextField />}

@@ -10,7 +10,7 @@ import "./../css/Button.css";
 import { SearchBox } from "./SearchBox";
 import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
-import FormContact from "./FormContact";
+import FormContact from "./edit/FormContact";
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
@@ -79,9 +79,6 @@ class MapBox extends React.Component<Props, State> {
         this.draw = new MapboxDraw({
             displayControlsDefault: false,
             controls: {
-                point: true,
-                polygon: true,
-                trash: true
             }
         });
         this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
@@ -250,7 +247,6 @@ class MapBox extends React.Component<Props, State> {
         this.setState({ loged })
         if (this.state.loged) {
             this.map.addControl(this.draw);
-
         } else {
             this.map.removeControl(this.draw)
         }
