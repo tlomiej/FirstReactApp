@@ -1,4 +1,4 @@
-import { Button, createStyles, Grid, makeStyles, TextField, Theme } from "@material-ui/core";
+import { Button, CircularProgress, createStyles, Grid, makeStyles, TextField, Theme } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Controller, useForm } from "react-hook-form";
@@ -53,9 +53,11 @@ export default function App(props: Props) {
   const { register, handleSubmit, control } = useForm<IFormInput>();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [edit, setEdit] = React.useState(false);
 
 
   const onSubmit = (data: IFormInput) => {
+    setEdit(true);
     const allData = { ...data, ...{ geojson: JSON.stringify(props.draw.getAll()) } }
     console.log(allData)
 
@@ -64,10 +66,11 @@ export default function App(props: Props) {
         fdb.firestore().collection('zgloszenia').add({ allData }).then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
           setOpen(true);
-
+          setEdit(false);
         })
           .catch((error) => {
             console.error("Error adding document: ", error);
+            setEdit(false);
           });
       } else {
         // No user is signed in.
@@ -129,9 +132,11 @@ export default function App(props: Props) {
             defaultValue=""
             required
           />
+          
           <Button type="submit" variant="contained" color="primary">
-            Send
+            { edit ? (<div><CircularProgress /> Sending...</div>): (<div>Send</div>)}
           </Button>
+          
 
         </Grid>
 
