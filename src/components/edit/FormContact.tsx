@@ -134,7 +134,7 @@ export default function App(props: Props) {
           />
           
           <Button type="submit" variant="contained" color="primary">
-            { edit ? (<div><CircularProgress /> Sending...</div>): (<div>Send</div>)}
+            { !edit ? (<div><CircularProgress /> Sending...</div>): (<div>Send</div>)}
           </Button>
           
 

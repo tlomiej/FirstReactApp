@@ -85,32 +85,28 @@ export default function SingUpButton(props: Props) {
             });
     }
 
-
-        useEffect(() => {
-            return () => {
-                
-                const loginOut = () => {
-                    console.log("Wylogowano")
-                    firebase.auth().signOut().then(() => {
-                        setLoged(false);
-                        props.userLoged(false);
-            
-                    }).catch(function (error) {
-                        console.log("singOut", error)
-                    });
-                }
-                // Anything in here is fired on component unmount.
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                setLoged(true);
+                props.userLoged(true);
+            } else {
+                setLoged(false);
+                props.userLoged(false);
             }
-        }, [])
-    
+        });
+
+    }, [])
+
 
 
 
     const loginOut = () => {
         console.log("Wylogowano")
         firebase.auth().signOut().then(() => {
-            setLoged(false);
-            props.userLoged(false);
+            setUser(user);
+            setLoged(true);
+            props.userLoged(true);
 
         }).catch(function (error) {
             console.log("singOut", error)
