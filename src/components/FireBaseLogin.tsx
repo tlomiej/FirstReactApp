@@ -85,7 +85,7 @@ export default function SingUpButton(props: Props) {
             });
     }
 
-    useEffect(() => {
+     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 setLoged(true);
@@ -96,7 +96,7 @@ export default function SingUpButton(props: Props) {
             }
         });
 
-    }, [])
+    }, []) 
 
 
 

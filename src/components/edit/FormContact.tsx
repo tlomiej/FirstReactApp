@@ -50,7 +50,7 @@ interface Props {
 }
 
 export default function App(props: Props) {
-  const { register, handleSubmit, control } = useForm<IFormInput>();
+  const { register, handleSubmit, control, reset } = useForm<IFormInput>();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
@@ -67,6 +67,8 @@ export default function App(props: Props) {
           console.log("Document written with ID: ", docRef.id);
           setOpen(true);
           setEdit(false);
+          reset({});
+
         })
           .catch((error) => {
             console.error("Error adding document: ", error);
@@ -132,11 +134,10 @@ export default function App(props: Props) {
             defaultValue=""
             required
           />
-          
-          <Button type="submit" variant="contained" color="primary">
-            { !edit ? (<div><CircularProgress /> Sending...</div>): (<div>Send</div>)}
-          </Button>
-          
+          {edit ? (<Button type="submit" variant="contained" color="primary">
+            <CircularProgress color="secondary" />  Sending...
+          </Button>) : <Button type="submit" variant="contained" color="primary">  Send
+          </Button>}
 
         </Grid>
 
