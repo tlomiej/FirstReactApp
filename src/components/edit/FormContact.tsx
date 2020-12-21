@@ -58,12 +58,14 @@ export default function App(props: Props) {
 
   const onSubmit = (data: IFormInput) => {
     setEdit(true);
-    const allData = { ...data, ...{ geojson: JSON.stringify(props.draw.getAll()) } }
+    const createDate = new Date();
+    const status = 'new'
+    const allData = { ...data, createDate: createDate, status: status, ...createDate, ...{ geojson: JSON.stringify(props.draw.getAll()) } }
     console.log(allData)
 
     fdb.auth().onAuthStateChanged((user) => {
       if (user) {
-        fdb.firestore().collection('zgloszenia').add({ allData }).then((docRef) => {
+        fdb.firestore().collection('zgloszenia').add(allData).then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
           setOpen(true);
           setEdit(false);
