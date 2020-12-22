@@ -10,6 +10,7 @@ import "./../css/Button.css";
 import { SearchBox } from "./SearchBox";
 import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
+import FilterListIcon from '@material-ui/icons/FilterList';
 import FormContact from "./edit/FormContact";
 
 //import FireBaseStart from "./FireBaseStart";
@@ -356,12 +357,18 @@ class MapBox extends React.Component<Props, State> {
                         <IconButton title="Szukaj" type="submit" onClick={this.toggleDrawer("left", true)} aria-label="search">
                             <SearchIcon />
                         </IconButton>
-
                     </div>
                     {this.state.loged ? (<div className='iconButtonStyle'>
                         <IconButton title="Dodaj" type="submit" onClick={this.handleClickOpen} aria-label="search">
                             <EditIcon />
                         </IconButton>
+                        
+                    </div>) : (<div></div>)}
+                    {this.state.loged ? (<div className='iconButtonStyle'>
+                        <IconButton title="Przegladaj" type="submit" onClick={this.handleClickOpen} aria-label="search">
+                            <FilterListIcon />
+                        </IconButton>
+                        
                     </div>) : (<div></div>)}
                 </div>
 

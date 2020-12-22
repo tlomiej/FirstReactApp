@@ -65,7 +65,7 @@ export default function App(props: Props) {
 
     fdb.auth().onAuthStateChanged((user) => {
       if (user) {
-        fdb.firestore().collection('zgloszenia').add(allData).then((docRef) => {
+        fdb.firestore().collection('zgloszenia').add({...allData, ...{user: user.email}}).then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
           setOpen(true);
           setEdit(false);
