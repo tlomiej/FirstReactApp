@@ -293,9 +293,29 @@ class MapBox extends React.Component<Props, State> {
             // });
 
         }
+    }
 
+    handleClickViewOpen = () => {
+        console.log("klik")
+        let elem = document.getElementById('rightView');
+        if (elem) {
+            let classes = elem.className.split(' ');
+            let collapsed = classes.indexOf('collapsed') !== -1;
+            let padding: any = {};
+            if (collapsed) {
+                classes.splice(classes.indexOf('collapsed'), 1);
+                padding['rightView'] = 300;
+            } else {
+                padding["rightView"] = 0;
+                classes.push('collapsed');
+            }
+            elem.className = classes.join(' ');
+            // this.map.easeTo({
+            //     padding: padding,
+            //     duration: 1000
+            // });
 
-
+        }
     }
 
     toggleDrawerEdit = (anchor: Anchor, open: boolean) => (
@@ -365,7 +385,7 @@ class MapBox extends React.Component<Props, State> {
                         
                     </div>) : (<div></div>)}
                     {this.state.loged ? (<div className='iconButtonStyle'>
-                        <IconButton title="Przegladaj" type="submit" onClick={this.handleClickOpen} aria-label="search">
+                        <IconButton title="Przegladaj" type="submit" onClick={this.handleClickViewOpen} aria-label="search">
                             <FilterListIcon />
                         </IconButton>
                         
@@ -377,6 +397,15 @@ class MapBox extends React.Component<Props, State> {
                     <div className="sidebar-content rounded-rect flex-center">
                                                 <FormContact draw={this.draw}></FormContact>
                         <div className="sidebar-toggle rounded-rect right" onClick={this.handleClickOpen}>
+                            &larr;
+                        </div>
+                    </div>
+                </div>
+                <div id="rightView" className="sidebar flex-center right collapsed">
+                    <div className="sidebar-content rounded-rect flex-center">
+                                                Przegladanie danyych
+                                                <FormContact draw={this.draw}></FormContact>
+                        <div className="sidebar-toggle rounded-rect right" onClick={this.handleClickViewOpen}>
                             &larr;
                         </div>
                     </div>
