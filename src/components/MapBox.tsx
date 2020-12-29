@@ -12,6 +12,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import FormContact from "./edit/FormContact";
+import GridStackStart from "./GridStackStart";
+
 
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
@@ -69,6 +71,7 @@ class MapBox extends React.Component<Props, State> {
 
 
     componentDidMount(): void {
+  
         this.map = new mapboxgl.Map({
             container: this.mapContainer,
             center: [this.props.longitude, this.props.latitude],
@@ -382,20 +385,20 @@ class MapBox extends React.Component<Props, State> {
                         <IconButton title="Dodaj" type="submit" onClick={this.handleClickOpen} aria-label="search">
                             <EditIcon />
                         </IconButton>
-                        
+
                     </div>) : (<div></div>)}
                     {this.state.loged ? (<div className='iconButtonStyle'>
                         <IconButton title="Przegladaj" type="submit" onClick={this.handleClickViewOpen} aria-label="search">
                             <FilterListIcon />
                         </IconButton>
-                        
+
                     </div>) : (<div></div>)}
                 </div>
 
 
                 <div id="right" className="sidebar flex-center right collapsed">
                     <div className="sidebar-content rounded-rect flex-center">
-                                                <FormContact draw={this.draw}></FormContact>
+                        <FormContact draw={this.draw}></FormContact>
                         <div className="sidebar-toggle rounded-rect right" onClick={this.handleClickOpen}>
                             &larr;
                         </div>
@@ -403,7 +406,7 @@ class MapBox extends React.Component<Props, State> {
                 </div>
                 <div id="rightView" className="sidebar flex-center right collapsed">
                     <div className="sidebar-content rounded-rect flex-center">
-                                                Przegladanie danyych
+                        Przegladanie danyych
                                                 <FormContact draw={this.draw}></FormContact>
                         <div className="sidebar-toggle rounded-rect right" onClick={this.handleClickViewOpen}>
                             &larr;
@@ -415,18 +418,19 @@ class MapBox extends React.Component<Props, State> {
                 <Drawer
                     open={this.state.drawer}
                     onClose={this.toggleDrawer("left", false)}
-                >
+                    >
                     <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
                     <SearchBox
                         result={this.state.searchBackup}
                         onGetMapQuestData={this.getDataFromMapQuest}
                         onGetData={this.getDataFromSearch}
                         onClickItem={this.onClikItem}
-                    />
+                        />
                 </Drawer>
                 {/*  <MenuBar drawEdit={this.state.drawerEdit}></MenuBar> */}
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
+                <GridStackStart></GridStackStart>
             </div>
         );
     }
