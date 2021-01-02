@@ -5,33 +5,22 @@ import { GridStack } from 'gridstack';
 import './../../../node_modules/gridstack/dist/gridstack.min.css'
 
 
-//import "./App.css";
+import GridLayout from 'react-grid-layout';
 
-function GridStackStart() {
-    // _________________________________________________
-    // Initialize Gridstack inside useEffect so that DOM is rendered when its initialized
-    // _________________________________________________
-    useEffect(() => {
-        var grid = GridStack.init();
-    });
-    // _________________________________________________
-    // _________________________________________________
-
+export default class MyFirstGrid extends React.Component {
+  render() {
+    // layout is an array of objects, see the demo for more complete usage
+    const layout = [
+      {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
+      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
+      {i: 'c', x: 4, y: 0, w: 1, h: 2}
+    ];
     return (
-        <div className="App">
-            <div className="grid-stack">
-                <div className="grid-stack-item border-dark" data-gs-width="4" data-gs-height="4">
-                    <div className="grid-stack-item-content">Item 1</div>
-                </div>
-                <div className="grid-stack-item border-dark" data-gs-width="4" data-gs-height="4">
-                    <div className="grid-stack-item-content">Item 2</div>
-                </div>
-                <div className="grid-stack-item border-dark" data-gs-width="4" data-gs-height="4">
-                    <div className="grid-stack-item-content">Item 3</div>
-                </div>
-            </div>
-        </div>
-    );
+      <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
+        <div key="a">a</div>
+        <div key="b">b</div>
+        <div key="c">c</div>
+      </GridLayout>
+    )
+  }
 }
-
-export default GridStackStart;
