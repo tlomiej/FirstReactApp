@@ -1,26 +1,53 @@
 import React, { useEffect } from "react";
+import { Responsive, WidthProvider } from 'react-grid-layout';
+import FormContact from "./edit/FormContact";
 
-import { GridStack } from 'gridstack';
-//import './gridstack/dist/gridstack.css';
-import './../../../node_modules/gridstack/dist/gridstack.min.css'
+const ResponsiveGridLayout = WidthProvider(Responsive);
+
+export default class MyResponsiveGrid extends React.Component {
+    render() {
+        var layouts = {
+            lg: [
+                { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
+                { i: 'b', x: 4, y: 6, w: 4, h: 6, minW: 3, maxW: 7 },
+                { i: 'c', x: 4, y: 0, w: 1, h: 2 }
+            ], md: [
+                { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
+                { i: 'b', x: 2, y: 5, w: 4, h: 6, minW: 3, maxW: 4 },
+                { i: 'c', x: 4, y: 0, w: 1, h: 2 }
+            ],
+            sm: [
+                { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
+                { i: 'b', x: 2, y: 5, w: 4, h: 6, minW: 3, maxW: 4 },
+                { i: 'c', x: 4, y: 0, w: 1, h: 2 }
+            ], xs: [
+                { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
+                { i: 'b', x: 2, y: 0, w: 2, h: 6, minW: 3, maxW: 4 },
+                { i: 'c', x: 4, y: 0, w: 1, h: 2 }
+            ],
+            xxs: [
+                { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
+                { i: 'b', x: 2, y: 0, w: 2, h: 6, minW: 3, maxW: 4 },
+                { i: 'c', x: 4, y: 0, w: 1, h: 2 }
+            ]
+        }
 
 
-import GridLayout from 'react-grid-layout';
-
-export default class MyFirstGrid extends React.Component {
-  render() {
-    // layout is an array of objects, see the demo for more complete usage
-    const layout = [
-      {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
-      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
-      {i: 'c', x: 4, y: 0, w: 1, h: 2}
-    ];
-    return (
-      <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
-        <div key="a">a</div>
-        <div key="b">b</div>
-        <div key="c">c</div>
-      </GridLayout>
-    )
-  }
+        return (
+            <ResponsiveGridLayout className="layout" layouts={layouts}
+                breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+                cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}>
+                <div key="1">1</div>
+                <div key="2"><FormContact></FormContact></div>
+                <div key="3">3</div>
+            </ResponsiveGridLayout>
+        )
+    }
 }
+
+
+//
+//
+//
+//
+

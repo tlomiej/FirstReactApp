@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 interface Props {
-  draw: any;
+  draw?: any;
 }
 
 export default function App(props: Props) {
