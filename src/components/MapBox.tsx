@@ -18,6 +18,7 @@ import GridStackStart from "./GridStackStart";
 //import FireBaseStart from "./FireBaseStart";
 import FireBaseLogin from "./FireBaseLogin";
 import { Box, Button, Drawer, IconButton } from "@material-ui/core";
+import { Layouts } from "react-grid-layout";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
@@ -39,6 +40,8 @@ type State = {
     drawer: boolean;
     drawerEdit: boolean;
     searchBackup: Array<Object>;
+    layouts: Layouts;
+    openEdit: boolean;
 
 };
 
@@ -63,15 +66,30 @@ class MapBox extends React.Component<Props, State> {
             loged: false,
             drawer: false,
             drawerEdit: false,
-            searchBackup: []
+            searchBackup: [],
+            layouts: {
+                lg: [
+                    { i: '2', x: 6, y: 6, w: 1, h: 6, minW: 4, maxW: 7 },
+                ], md: [
+                    { i: '2', x: 5, y: 6, w: 2, h: 6, minW: 4, maxW: 8 },
+                ],
+                sm: [
+                    { i: '2', x: 6, y: 6, w: 2, h: 6, minW: 4, maxW: 4 },
+                ], xs: [
+                    { i: '2', x: 2, y: 0, w: 2, h: 6, minW: 4, maxW: 8 },
+                ],
+                xxs: [
+                    { i: '2', x: 2, y: 0, w: 2, h: 6, minW: 3, maxW: 4 },
+                ]
+            },
+            openEdit: false
         };
 
     }
 
 
-
     componentDidMount(): void {
-  
+
         this.map = new mapboxgl.Map({
             container: this.mapContainer,
             center: [this.props.longitude, this.props.latitude],
@@ -276,6 +294,7 @@ class MapBox extends React.Component<Props, State> {
     drawerWidth = 240;
 
     handleClickOpen = () => {
+        this.setState({openEdit: true});
         console.log("klik")
         let elem = document.getElementById('right');
         if (elem) {
@@ -418,19 +437,19 @@ class MapBox extends React.Component<Props, State> {
                 <Drawer
                     open={this.state.drawer}
                     onClose={this.toggleDrawer("left", false)}
-                    >
+                >
                     <Button onClick={this.toggleDrawer("left", false)}>"X"</Button>
                     <SearchBox
                         result={this.state.searchBackup}
                         onGetMapQuestData={this.getDataFromMapQuest}
                         onGetData={this.getDataFromSearch}
                         onClickItem={this.onClikItem}
-                        />
+                    />
                 </Drawer>
                 {/*  <MenuBar drawEdit={this.state.drawerEdit}></MenuBar> */}
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
-                <GridStackStart></GridStackStart>
+                <GridStackStart layouts={this.state.layouts} showEditForm={this.state.openEdit}></GridStackStart>
             </div>
         );
     }
