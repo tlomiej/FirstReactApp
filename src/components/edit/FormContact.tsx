@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     paperGrid: {
+      backgroundColor: 'whitesmoke',
       padding: theme.spacing(4),
       textAlign: 'center',
       color: theme.palette.text.secondary,

@@ -11,6 +11,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         toolBox: {
+            backgroundColor: 'whitesmoke',
             margin: '1px',
             paddingLeft: '25px'
 
