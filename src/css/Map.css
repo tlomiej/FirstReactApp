@@ -24,13 +24,9 @@
 .searchStyle {
   display: blox;
   position: absolute;
-  top: 0;
-  left: 0;
-  margin: 6px;
-  margin-left: 4px;
   color: #ffffff;
   z-index: 1 !important;
-  padding: 12px;
+  left: calc(100vw - 65px)
 }
 
 .menuStyle {

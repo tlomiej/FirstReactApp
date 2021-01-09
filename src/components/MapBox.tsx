@@ -294,7 +294,6 @@ class MapBox extends React.Component<Props, State> {
     drawerWidth = 240;
 
     handleClickOpen = () => {
-        this.setState({openEdit: true});
         console.log("klik")
         let elem = document.getElementById('right');
         if (elem) {
@@ -319,25 +318,7 @@ class MapBox extends React.Component<Props, State> {
 
     handleClickViewOpen = () => {
         console.log("klik")
-        let elem = document.getElementById('rightView');
-        if (elem) {
-            let classes = elem.className.split(' ');
-            let collapsed = classes.indexOf('collapsed') !== -1;
-            let padding: any = {};
-            if (collapsed) {
-                classes.splice(classes.indexOf('collapsed'), 1);
-                padding['rightView'] = 300;
-            } else {
-                padding["rightView"] = 0;
-                classes.push('collapsed');
-            }
-            elem.className = classes.join(' ');
-            // this.map.easeTo({
-            //     padding: padding,
-            //     duration: 1000
-            // });
-
-        }
+        this.setState({openEdit: !this.state.openEdit});
     }
 
     toggleDrawerEdit = (anchor: Anchor, open: boolean) => (

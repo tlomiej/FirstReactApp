@@ -14,10 +14,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-enum GenderEnum {
-  female = "female",
-  male = "male"
-}
 
 interface IFormInput {
   title: String;
@@ -33,13 +29,16 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     paperGrid: {
-      backgroundColor: 'whitesmoke',
       padding: theme.spacing(4),
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
     toolBox: {
       margin: '1px'
+
+    },
+    fullForm: {
+      backgroundColor: 'whitesmoke'
 
     }
   }),
@@ -66,7 +65,7 @@ export default function App(props: Props) {
 
     fdb.auth().onAuthStateChanged((user) => {
       if (user) {
-        fdb.firestore().collection('zgloszenia').add({...allData, ...{user: user.email}}).then((docRef) => {
+        fdb.firestore().collection('zgloszenia').add({ ...allData, ...{ user: user.email } }).then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
           setOpen(true);
           setEdit(false);
@@ -118,33 +117,35 @@ export default function App(props: Props) {
           </React.Fragment>
         }
       />
-      <EditToolbar draw={props.draw}></EditToolbar>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid className={classes.paperGrid} container spacing={3} direction="column">
-          <Controller
-            as={<TextField />}
-            name="title"
-            label="First Name"
-            control={control}
-            defaultValue=""
-            required
-          />
-          <Controller
-            as={<TextField />}
-            name="descryption"
-            label="Descryption"
-            control={control}
-            defaultValue=""
-            required
-          />
-          {edit ? (<Button type="submit" variant="contained" color="primary">
-            <CircularProgress color="secondary" />  Sending...
-          </Button>) : <Button type="submit" variant="contained" color="primary">  Send
+      <div className={classes.fullForm}>
+        <EditToolbar draw={props.draw}></EditToolbar>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid className={classes.paperGrid} container spacing={3} direction="column">
+            <Controller
+              as={<TextField />}
+              name="title"
+              label="First Name"
+              control={control}
+              defaultValue=""
+              required
+            />
+            <Controller
+              as={<TextField />}
+              name="descryption"
+              label="Descryption"
+              control={control}
+              defaultValue=""
+              required
+            />
+            {edit ? (<Button type="submit" variant="contained" color="primary">
+              <CircularProgress color="secondary" />  Sending...
+            </Button>) : <Button type="submit" variant="contained" color="primary">  Send
           </Button>}
 
-        </Grid>
+          </Grid>
 
-      </form>
+        </form>
+      </div>
 
 
     </div>
