@@ -70,21 +70,21 @@ class MapBox extends React.Component<Props, State> {
             searchBackup: [],
             layouts: {
                 lg: [
-                    { i: '2', x: 6, y: 6, w: 1, h: 6, minW: 4, maxW: 7 },
+                    { i: '2', x: 0, y: 0, w: 1, h: 6, minW: 4, maxW: 7 },
                     { i: '3', x: 6, y: 6, w: 1, h: 6, minW: 4, maxW: 7 },
                 ], md: [
-                    { i: '2', x: 5, y: 6, w: 2, h: 6, minW: 4, maxW: 8 },
+                    { i: '2', x: 0, y: 0, w: 2, h: 6, minW: 4, maxW: 8 },
                     { i: '3', x: 5, y: 6, w: 2, h: 6, minW: 4, maxW: 8 },
                 ],
                 sm: [
-                    { i: '2', x: 6, y: 6, w: 2, h: 6, minW: 4, maxW: 4 },
+                    { i: '2', x: 0, y: 0, w: 2, h: 6, minW: 4, maxW: 4 },
                     { i: '3', x: 6, y: 6, w: 2, h: 6, minW: 4, maxW: 4 },
                 ], xs: [
-                    { i: '2', x: 2, y: 0, w: 2, h: 6, minW: 4, maxW: 8 },
+                    { i: '2', x: 0, y: 0, w: 2, h: 6, minW: 4, maxW: 8 },
                     { i: '3', x: 2, y: 0, w: 2, h: 6, minW: 4, maxW: 8 },
                 ],
                 xxs: [
-                    { i: '2', x: 2, y: 0, w: 2, h: 6, minW: 3, maxW: 4 },
+                    { i: '2', x: 0, y: 0, w: 2, h: 6, minW: 3, maxW: 4 },
                     { i: '3', x: 2, y: 0, w: 2, h: 6, minW: 3, maxW: 4 },
                 ]
             },
@@ -302,13 +302,13 @@ class MapBox extends React.Component<Props, State> {
 
     handleClickOpen = () => {
 
-        this.setState({openView: !this.state.openView});
+        this.setState({ openView: !this.state.openView });
 
     }
 
     handleClickViewOpen = () => {
         console.log("klik")
-        this.setState({openEdit: !this.state.openEdit});
+        this.setState({ openEdit: !this.state.openEdit });
     }
 
     toggleDrawerEdit = (anchor: Anchor, open: boolean) => (
@@ -420,7 +420,8 @@ class MapBox extends React.Component<Props, State> {
                 {/*  <MenuBar drawEdit={this.state.drawerEdit}></MenuBar> */}
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
-                <GridStackStart layouts={this.state.layouts} showEditForm={this.state.openEdit} showViewForm={this.state.openView}></GridStackStart>
+                {this.state.openEdit || this.state.openView ? (<GridStackStart layouts={this.state.layouts} showEditForm={this.state.openEdit} showViewForm={this.state.openView}></GridStackStart>) : (<div></div>)}
+
             </div>
         );
     }
