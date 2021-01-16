@@ -42,6 +42,7 @@ type State = {
     searchBackup: Array<Object>;
     layouts: Layouts;
     openEdit: boolean;
+    openView: boolean;
 
 };
 
@@ -70,19 +71,25 @@ class MapBox extends React.Component<Props, State> {
             layouts: {
                 lg: [
                     { i: '2', x: 6, y: 6, w: 1, h: 6, minW: 4, maxW: 7 },
+                    { i: '3', x: 6, y: 6, w: 1, h: 6, minW: 4, maxW: 7 },
                 ], md: [
                     { i: '2', x: 5, y: 6, w: 2, h: 6, minW: 4, maxW: 8 },
+                    { i: '3', x: 5, y: 6, w: 2, h: 6, minW: 4, maxW: 8 },
                 ],
                 sm: [
                     { i: '2', x: 6, y: 6, w: 2, h: 6, minW: 4, maxW: 4 },
+                    { i: '3', x: 6, y: 6, w: 2, h: 6, minW: 4, maxW: 4 },
                 ], xs: [
                     { i: '2', x: 2, y: 0, w: 2, h: 6, minW: 4, maxW: 8 },
+                    { i: '3', x: 2, y: 0, w: 2, h: 6, minW: 4, maxW: 8 },
                 ],
                 xxs: [
                     { i: '2', x: 2, y: 0, w: 2, h: 6, minW: 3, maxW: 4 },
+                    { i: '3', x: 2, y: 0, w: 2, h: 6, minW: 3, maxW: 4 },
                 ]
             },
-            openEdit: false
+            openEdit: false,
+            openView: false
         };
 
     }
@@ -294,26 +301,9 @@ class MapBox extends React.Component<Props, State> {
     drawerWidth = 240;
 
     handleClickOpen = () => {
-        console.log("klik")
-        let elem = document.getElementById('right');
-        if (elem) {
-            let classes = elem.className.split(' ');
-            let collapsed = classes.indexOf('collapsed') !== -1;
-            let padding: any = {};
-            if (collapsed) {
-                classes.splice(classes.indexOf('collapsed'), 1);
-                padding['right'] = 300;
-            } else {
-                padding["right"] = 0;
-                classes.push('collapsed');
-            }
-            elem.className = classes.join(' ');
-            // this.map.easeTo({
-            //     padding: padding,
-            //     duration: 1000
-            // });
 
-        }
+        this.setState({openView: !this.state.openView});
+
     }
 
     handleClickViewOpen = () => {
@@ -382,7 +372,7 @@ class MapBox extends React.Component<Props, State> {
                         </IconButton>
                     </div>
                     {this.state.loged ? (<div className='iconButtonStyle'>
-                        <IconButton title="Dodaj" type="submit" onClick={this.handleClickOpen} aria-label="search">
+                        <IconButton title="Dodaj ?" type="submit" onClick={this.handleClickOpen} aria-label="search">
                             <EditIcon />
                         </IconButton>
 
@@ -430,7 +420,7 @@ class MapBox extends React.Component<Props, State> {
                 {/*  <MenuBar drawEdit={this.state.drawerEdit}></MenuBar> */}
 
                 <div ref={el => this.mapContainer = el} className='mapContainer' />
-                <GridStackStart layouts={this.state.layouts} showEditForm={this.state.openEdit}></GridStackStart>
+                <GridStackStart layouts={this.state.layouts} showEditForm={this.state.openEdit} showViewForm={this.state.openView}></GridStackStart>
             </div>
         );
     }
